@@ -19,12 +19,12 @@
   <main>
     <h2>Weather app</h2>
     <div class="search-input">
-      <input type="text" id="input" value="borivali" placeholder="search for cities">
+      <input type="text" id="input" value="dahisar" placeholder="search for cities">
       <i id="search" class="fa-solid fa-magnifying-glass"></i>
       
     </div>
 
-    <p id="city-name">Mumbai</p>
+    <p id="city-name"></p>
     <div class="result flex m-4 ">
       <div class="weather-img flex flex-col items-center gap-5">
         <img src="clears.png" alt="" />
@@ -33,10 +33,10 @@
       <div class="weather-property gap-5 flex justify-between flex-wrap m-5 p-5">
         <div class="flex flex-col w-30 items-center justify-center">
           <i class="fa-solid fa-wind text-3xl"></i>
-          <p class="mt-3" id="wind">wind</p>
+          <p class="mt-3" id="wind"></p>
         </div>
         <div class="flex flex-col w-30 items-center justify-center">
-          <i class="fa-solid fa-cloud-rain text-3xl"></i>
+          <i id="cloud-status" class="fa-solid text-3xl"></i>
           <p class="mt-3" id="rain"></p>
         </div>
         <div class="flex flex-col w-30 items-center justify-center">
