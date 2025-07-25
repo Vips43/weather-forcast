@@ -2,6 +2,7 @@ let input = document.querySelector('#input')
 let search =document.querySelector('#search')
 let cityName = document.getElementById('city-name')
 let weatherStatus = document.getElementById('status')
+let cloudStatus = document.getElementById('cloud-status')
 let API_key = '901be245c2974afa304b1285ac063b38'
 
 search.addEventListener('click', ()=>{
@@ -27,5 +28,13 @@ async function processData(input) {
     document.getElementById('temp').innerText = Math.floor((jsonData.main.temp)/10) + "°C"
     document.getElementById('rise').innerText = jsonData.sys.sunrise
     document.getElementById('set').innerText = jsonData.sys.sunset
-    
+    if (jsonData.weather[0].description == 'overcast clouds') {
+      cloudStatus = cloudStatus.classList.add('fa-cloud-meatball')
+    } else if (jsonData.weather[0].description == 'rain' || jsonData.weather[0].description == 'heavy rain') {
+      cloudStatus = cloudStatus.classList.add('fa-cloud-rain')
+    }
+}
+
+function weatherInfo(cloudStatus) {
+  
 }
