@@ -23,8 +23,10 @@ async function processData(input) {
   console.log("Data received:", getData);
 
   let jsonData = await getData.json();
-  console.log(jsonData);
-  console.log(jsonData.name);
+  const sunrise = new Date(jsonData.sys.sunrise * 1000);
+  const sunset = new Date(jsonData.sys.sunset * 1000);
+  
+  
   cityName.innerText = jsonData.name;
   weatherStatus.innerText = jsonData.weather[0].main;
   document.getElementById("wind").innerText = jsonData.wind.speed;
@@ -32,8 +34,8 @@ async function processData(input) {
   document.getElementById("humidity").innerText = jsonData.main.humidity + "%";
   document.getElementById("temp").innerText =
     Math.floor(jsonData.main.temp - 273.15) + "°C";
-  document.getElementById("rise").innerText = jsonData.sys.sunrise;
-  document.getElementById("set").innerText = jsonData.sys.sunset;
+  document.getElementById("rise").innerText = `sun rise on :- ${sunrise}`;
+  document.getElementById("set").innerText = sunset;
   weatherInfo(jsonData);
 }
 

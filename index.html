@@ -21,7 +21,7 @@
   </head>
 
   <body>
-    <main class="w-150">
+    <main class="w-150 flex justify-center items-center">
       <h2>Weather app</h2>
       <div class="search-input">
         <input
@@ -35,13 +35,14 @@
 
       <p id="city-name"></p>
 
-      <div class="result justify-center flex m-5">
+      <div class="result none justify-center items-center flex-col flex m-5">
         <div class="weather-img flex flex-col items-center gap-5">
           <img src="" alt="" id="image" />
-          <span class="font-bold text-white" id="status"></span>
+          <span class="font-bold text-white" id="status">vrgrg</span>
         </div>
+        <hr>
         <div
-          class="weather-property gap-5 flex justify-between flex-wrap m-5 p-5"
+          class="weather-property gap-5 flex justify-center flex-wrap m-5 p-5"
         >
           <div class="flex flex-col w-30 items-center justify-center">
             <i class="fa-solid fa-wind text-3xl"></i>
