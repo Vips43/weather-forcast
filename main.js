@@ -42,7 +42,7 @@ async function processData(input) {
 function weatherInfo(jsonData) {
   if (jsonData.weather[0].description == "overcast clouds") {
     cloudStatus = cloudStatus.classList.add("fa-cloud-meatball");
-    image.src = "rain.png"
+    image.src = "cloudy.png"
   } else if (
     jsonData.weather[0].description == "rain" ||
     jsonData.weather[0].description == "heavy rain"
