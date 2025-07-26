@@ -22,53 +22,60 @@
 
   <body>
     <main class="w-150 flex justify-center items-center">
-      <h2>Weather app</h2>
+      <h1>Weather app</h1>
       <div class="search-input">
         <input
           type="text"
           id="input"
           value="dahisar"
-          placeholder="search for cities"
-        />
+          placeholder="search for cities"/>
         <i id="search" class="fa-solid fa-magnifying-glass"></i>
-      </div>
+      </div> 
+      <button class="border rounded w-15 p-4">Clear</button>
+      <div class="result none p-3 flex flex-col justify-center items-center gap-5">
+        <p id="city-name" class="text-center font-bold text-2xl"></p>
 
-      <p id="city-name"></p>
-
-      <div class="result none justify-center items-center flex-col flex m-5">
-        <div class="weather-img flex flex-col items-center gap-5">
-          <img src="" alt="" id="image" />
-          <span class="font-bold text-white" id="status">vrgrg</span>
+        <div class="justify-center items-center flex m-5">
+          <div class="weather-img flex flex-col items-center gap-5">
+            <img src="cloudy.png" alt="" id="image" />
+            <span class="font-bold text-white" id="status">vrgrg</span>
+          </div>
+          <hr />
+          <!-- weather properties section -->
+          <div
+            class="weather-property gap-5 flex justify-center flex-wrap m-5 p-5"
+          >
+            <div class="flex flex-col w-30 items-center gap-2 justify-center">
+              <i class="fa-solid fa-wind text-3xl"></i>
+              <p class="mt-3" id="wind"></p>
+            </div>
+            <div class="flex flex-col w-30 items-center gap-2 justify-center">
+              <i id="cloud-status" class="fa-solid text-3xl"></i>
+              <p class="mt-3" id="rain"></p>
+            </div>
+            <div class="flex flex-col w-30 items-center gap-2 justify-center">
+              <i class="fa-solid fa-droplet text-3xl"></i>
+              <p class="mt-3" id="humidity"></p>
+            </div>
+            <div class="flex flex-col w-30 items-center gap-2 justify-center">
+              <i class="fa-solid fa-temperature-high text-3xl"></i>
+              <p class="mt-3" id="temp"></p>
+            </div>
+          </div>
+          <!-- weather properties section close -->
         </div>
-        <hr>
-        <div
-          class="weather-property gap-5 flex justify-center flex-wrap m-5 p-5"
-        >
-          <div class="flex flex-col w-30 items-center justify-center">
-            <i class="fa-solid fa-wind text-3xl"></i>
-            <p class="mt-3" id="wind"></p>
-          </div>
-          <div class="flex flex-col w-30 items-center justify-center">
-            <i id="cloud-status" class="fa-solid text-3xl"></i>
-            <p class="mt-3" id="rain"></p>
-          </div>
-          <div class="flex flex-col w-30 items-center justify-center">
-            <i class="fa-solid fa-droplet text-3xl"></i>
-            <p class="mt-3" id="humidity"></p>
-          </div>
-          <div class="flex flex-col w-30 items-center justify-center">
-            <i class="fa-solid fa-temperature-high text-3xl"></i>
-            <p class="mt-3" id="temp"></p>
-          </div>
-          <div class="flex flex-col w-30 items-center justify-center">
-            <i class="fa-solid fa-cloud text-3xl"></i>
+        <!-- sunrise and sunset section -->
+        <div class="flex m-5  justify-around w-[60%]">
+          <div class="flex flex-col justify-center items-center">
+            <img src="sun_icon.png" alt="" srcset="" />
             <p class="mt-3" id="rise"></p>
           </div>
-          <div class="flex flex-col w-30 items-center justify-center">
-            <i class="fa-solid fa-temperature-high text-3xl"></i>
-            <p class="mt-3" id="set"></p>
+          <div class="flex flex-col justify-center items-center">
+            <img src="moon_icon.png" alt="" />
+            <p class="m-3" id="set"></p>
           </div>
         </div>
+        <!-- sunrise and sunset section ends -->
       </div>
     </main>
     <!-- Project -->

@@ -34,8 +34,8 @@ async function processData(input) {
   document.getElementById("humidity").innerText = jsonData.main.humidity + "%";
   document.getElementById("temp").innerText =
     Math.floor(jsonData.main.temp - 273.15) + "°C";
-  document.getElementById("rise").innerText = `sun rise on :- ${sunrise}`;
-  document.getElementById("set").innerText = sunset;
+  document.getElementById("rise").innerText = `sun rise on :- ${sunrise.toLocaleTimeString()}`;
+  document.getElementById("set").innerText = `sun sets on :- ${sunset.toLocaleTimeString()}`;
   weatherInfo(jsonData);
 }
 
@@ -49,5 +49,11 @@ function weatherInfo(jsonData) {
   ) {
     cloudStatus = cloudStatus.classList.add("fa-cloud-rain");
     image.src = "rain.png"
+  }  else if (
+    jsonData.weather[0].description == "clear sky" || jsonData.weather[0].description == "clear"
+  ) {
+    cloudStatus = cloudStatus.classList.add("fa-sun");
+    image.src = "clear.png"
   }
+
 }
