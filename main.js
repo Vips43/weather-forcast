@@ -9,10 +9,16 @@ let weatherResult = document.querySelector('.result')
 let API_key = "901be245c2974afa304b1285ac063b38";
 
 search.addEventListener("click", () => {
-  let cityName = input.value;
-  weatherResult.classList.remove('none')
-  console.log(cityName);
-  processData(cityName);
+  if(input.value == ""){
+    alert('enter city name to find')
+  }
+  else{
+    let cityName = input.value;
+    weatherResult.classList.remove('none')
+    console.log(cityName);
+    processData(cityName);
+  }
+  
 });
 
 async function processData(input) {
@@ -29,7 +35,7 @@ async function processData(input) {
   
   cityName.innerText = jsonData.name;
   weatherStatus.innerText = jsonData.weather[0].main;
-  document.getElementById("wind").innerText = jsonData.wind.speed;
+  document.getElementById("wind").innerText = jsonData.wind.speed + 'km/h';
   document.getElementById("rain").innerText = jsonData.weather[0].description;
   document.getElementById("humidity").innerText = jsonData.main.humidity + "%";
   document.getElementById("temp").innerText =
