@@ -9,11 +9,12 @@ let weatherResult = document.querySelector('.result')
 let API_key = "901be245c2974afa304b1285ac063b38";
 
 search.addEventListener("click", () => {
+  alert('clickeed')
   if(input.value == ""){
     alert('enter city name to find')
   }
   else{
-    let cityName = input.value;
+    let cityName = input.value.trim();
     weatherResult.classList.remove('none')
     console.log(cityName);
     processData(cityName);
@@ -21,9 +22,9 @@ search.addEventListener("click", () => {
   
 });
 
-async function processData(input) {
+async function processData(city) {
   const getData = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${input}&appid=901be245c2974afa304b1285ac063b38`
+    `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=901be245c2974afa304b1285ac063b38`
   );
 
   console.log("Data received:", getData);
@@ -42,11 +43,12 @@ async function processData(input) {
     Math.floor(jsonData.main.temp - 273.15) + "°C";
   document.getElementById("rise").innerText = `sun rise on :- ${sunrise.toLocaleTimeString()}`;
   document.getElementById("set").innerText = `sun sets on :- ${sunset.toLocaleTimeString()}`;
+
   weatherInfo(jsonData);
 }
 
 function weatherInfo(jsonData) {
-  if (jsonData.weather[0].description == "overcast clouds") {
+  if (jsonData.weather[0].description == "overcast clouds" || jsonData.weather[0].description == "scattered clouds") {
     cloudStatus = cloudStatus.classList.add("fa-cloud-meatball");
     image.src = "cloudy.png"
   } else if (
