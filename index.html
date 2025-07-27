@@ -32,14 +32,14 @@
         />
         <i id="search" class="fa-solid fa-magnifying-glass"></i>
       </div> 
-      <button class="border rounded w-15 p-4">Clear</button>
+      <button onclick="reset()" class="border cursor-pointer rounded w-15 p-4">Clear</button>
       <div class="result none p-3 flex flex-col justify-center items-center gap-5">
         <p id="city-name" class="text-center font-bold text-2xl"></p>
 
         <div class="justify-center items-center flex m-5">
           <div class="weather-img flex flex-col items-center gap-5">
             <img src="cloudy.png" alt="" id="image" />
-            <span class="font-bold text-white" id="status">vrgrg</span>
+            <span class="font-bold text-white" id="status"></span>
           </div>
           <hr />
           <!-- weather properties section -->

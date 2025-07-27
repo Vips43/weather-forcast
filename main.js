@@ -9,14 +9,12 @@ let weatherResult = document.querySelector('.result')
 let API_key = "901be245c2974afa304b1285ac063b38";
 
 search.addEventListener("click", () => {
-  alert('clickeed')
   if(input.value == ""){
     alert('enter city name to find')
   }
   else{
     let cityName = input.value.trim();
-    weatherResult.classList.remove('none')
-    console.log(cityName);
+    weatherResult.classList.remove('none');
     processData(cityName);
   }
   
@@ -64,4 +62,10 @@ function weatherInfo(jsonData) {
     image.src = "clear.png"
   }
 
+
+  
 }
+function reset() {
+    weatherResult.classList.add('none')
+    input.value = ''
+  }
