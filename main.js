@@ -56,7 +56,7 @@ function weatherInfo(jsonData) {
     cloudStatus = cloudStatus.classList.add("fa-cloud-rain");
     image.src = "rain.png"
   }  else if (
-    jsonData.weather[0].description == "clear sky" || jsonData.weather[0].description == "clear"
+    jsonData.weather[0].description == "clear sky" || jsonData.weather[0].description == "clear" || jsonData.weather[0].description == "broken clouds"
   ) {
     cloudStatus = cloudStatus.classList.add("fa-sun");
     image.src = "clear.png"
