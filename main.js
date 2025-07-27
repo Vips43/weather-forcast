@@ -4,13 +4,14 @@ let cityName = document.getElementById("city-name");
 let weatherStatus = document.getElementById("status");
 let cloudStatus = document.getElementById("cloud-status");
 let image = document.getElementById('image')
+let notFound = document.getElementById('not-found')
 let weatherResult = document.querySelector('.result')
 
 let API_key = "901be245c2974afa304b1285ac063b38";
 
 search.addEventListener("click", () => {
   if(input.value == ""){
-    alert('enter city name to find')
+    cityName.textContent = 'enter city name to find'
   }
   else{
     let cityName = input.value.trim();
@@ -19,6 +20,7 @@ search.addEventListener("click", () => {
   }
   
 });
+processData();
 
 async function processData(city) {
   const getData = await fetch(
@@ -62,10 +64,7 @@ function weatherInfo(jsonData) {
   ) {
     cloudStatus = cloudStatus.classList.add("fa-sun");
     image.src = "clear.png"
-  }
-
-
-  
+  }  
 }
 function reset() {
     weatherResult.classList.add('none')
