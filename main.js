@@ -1,5 +1,5 @@
 let input = document.querySelector("#input");
-let search = document.querySelector("#search");
+let searchBtn = document.querySelector("#search");
 let cityName = document.getElementById("city-name");
 let weatherStatus = document.getElementById("status");
 let cloudStatus = document.getElementById("cloud-status");
@@ -9,7 +9,12 @@ let weatherResult = document.querySelector('.result')
 
 let API_key = "901be245c2974afa304b1285ac063b38";
 
-search.addEventListener("click", () => {
+
+cloudStatus.className = '';
+
+
+searchBtn.addEventListener("click", () => {
+  
   if(input.value == ""){
     cityName.textContent = 'enter city name to find'
   }
@@ -20,7 +25,6 @@ search.addEventListener("click", () => {
   }
   
 });
-processData();
 
 async function processData(city) {
   const getData = await fetch(
@@ -30,9 +34,6 @@ async function processData(city) {
   console.log("Data received:", getData);
 
   let jsonData = await getData.json();
-  const sunrise = new Date(jsonData.sys.sunrise * 1000);
-  const sunset = new Date(jsonData.sys.sunset * 1000);
-  
   
   cityName.innerText = jsonData.name;
   weatherStatus.innerText = jsonData.weather[0].main;
@@ -41,6 +42,10 @@ async function processData(city) {
   document.getElementById("humidity").innerText = jsonData.main.humidity + "%";
   document.getElementById("temp").innerText =
     Math.floor(jsonData.main.temp - 273.15) + "°C";
+
+  const sunrise = new Date(jsonData.sys.sunrise * 1000);
+  const sunset = new Date(jsonData.sys.sunset * 1000);
+
   document.getElementById("rise").innerText = `sun rise on :- ${sunrise.toLocaleTimeString()}`;
   document.getElementById("set").innerText = `sun sets on :- ${sunset.toLocaleTimeString()}`;
 
@@ -51,22 +56,23 @@ function weatherInfo(jsonData) {
   if (jsonData.weather[0].description == "overcast clouds" || jsonData.weather[0].description == "scattered clouds" || jsonData.weather[0].description == "broken clouds"
 
   ) {
-    cloudStatus = cloudStatus.classList.add("fa-cloud-meatball");
+    cloudStatus.classList.add("fa-solid","fa-cloud-meatball","text-3xl");
     image.src = "cloudy.png"
   } else if (
     jsonData.weather[0].description == "rain" ||
     jsonData.weather[0].description == "heavy rain"
   ) {
-    cloudStatus = cloudStatus.classList.add("fa-cloud-rain");
+    cloudStatus.classList.add("fa-solid", "fa-cloud-rain","text-3xl");
     image.src = "rain.png"
   }  else if (
     jsonData.weather[0].description == "clear sky" || jsonData.weather[0].description == "clear" 
   ) {
-    cloudStatus = cloudStatus.classList.add("fa-sun");
+    cloudStatus.classList.add("fa-solid","fa-sun", "text-3xl");
     image.src = "clear.png"
   }  
 }
 function reset() {
     weatherResult.classList.add('none')
     input.value = ''
+    cloudStatus.className = '';
   }
