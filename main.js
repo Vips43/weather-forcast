@@ -20,59 +20,70 @@ searchBtn.addEventListener("click", () => {
   }
   else{
     let cityName = input.value.trim();
-    weatherResult.classList.remove('none');
     processData(cityName);
+    
   }
   
 });
-
+error
 async function processData(city) {
   const getData = await fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=901be245c2974afa304b1285ac063b38`
   );
-
-  console.log("Data received:", getData);
-
+  
   let jsonData = await getData.json();
   
-  cityName.innerText = jsonData.name;
-  weatherStatus.innerText = jsonData.weather[0].main;
-  document.getElementById("wind").innerText = jsonData.wind.speed + 'km/h';
-  document.getElementById("rain").innerText = jsonData.weather[0].description;
-  document.getElementById("humidity").innerText = jsonData.main.humidity + "%";
-  document.getElementById("temp").innerText =
-    Math.floor(jsonData.main.temp - 273.15) + "°C";
+  if(getData.status == "404"){
+    weatherResult.classList.add('none')    
+    notFound.classList.remove('none')
+  }
+  else
+    {
+    weatherResult.classList.remove('none');
 
-  const sunrise = new Date(jsonData.sys.sunrise * 1000);
-  const sunset = new Date(jsonData.sys.sunset * 1000);
+    cityName.innerText = jsonData.name;
+    weatherStatus.innerText = jsonData.weather[0].main;
+    document.getElementById("wind").innerText = jsonData.wind.speed + 'km/h';
+    document.getElementById("rain").innerText = jsonData.weather[0].description;
+    document.getElementById("humidity").innerText = jsonData.main.humidity + "%";
+    document.getElementById("temp").innerText =
+      Math.floor(jsonData.main.temp - 273.15) + "°C";
+  
+    const sunrise = new Date(jsonData.sys.sunrise * 1000);
+    const sunset = new Date(jsonData.sys.sunset * 1000);
+  
+    document.getElementById("rise").innerText = `sun rise on :- ${sunrise.toLocaleTimeString()}`;
+    document.getElementById("set").innerText = `sun sets on :- ${sunset.toLocaleTimeString()}`;
+  
+    weatherInfo(jsonData);
+  }
+  
+  function weatherInfo(jsonData) {
+    if (jsonData.weather[0].description == "overcast clouds" || jsonData.weather[0].description == "scattered clouds" || jsonData.weather[0].description == "broken clouds"
+  
+    ) {
+      cloudStatus.classList.add("fa-solid","fa-cloud-meatball","text-3xl");
+      image.src = "cloudy.png"
+    } else if (
+      jsonData.weather[0].description == "rain" ||
+      jsonData.weather[0].description == "heavy rain"
+    ) {
+      cloudStatus.classList.add("fa-solid", "fa-cloud-rain","text-3xl");
+      image.src = "rain.png"
+    }  else if (
+      jsonData.weather[0].description == "clear sky" || jsonData.weather[0].description == "clear" 
+    ) {
+      cloudStatus.classList.add("fa-solid","fa-sun", "text-3xl");
+      image.src = "clear.png"
+    }  
 
-  document.getElementById("rise").innerText = `sun rise on :- ${sunrise.toLocaleTimeString()}`;
-  document.getElementById("set").innerText = `sun sets on :- ${sunset.toLocaleTimeString()}`;
-
-  weatherInfo(jsonData);
-}
-
-function weatherInfo(jsonData) {
-  if (jsonData.weather[0].description == "overcast clouds" || jsonData.weather[0].description == "scattered clouds" || jsonData.weather[0].description == "broken clouds"
-
-  ) {
-    cloudStatus.classList.add("fa-solid","fa-cloud-meatball","text-3xl");
-    image.src = "cloudy.png"
-  } else if (
-    jsonData.weather[0].description == "rain" ||
-    jsonData.weather[0].description == "heavy rain"
-  ) {
-    cloudStatus.classList.add("fa-solid", "fa-cloud-rain","text-3xl");
-    image.src = "rain.png"
-  }  else if (
-    jsonData.weather[0].description == "clear sky" || jsonData.weather[0].description == "clear" 
-  ) {
-    cloudStatus.classList.add("fa-solid","fa-sun", "text-3xl");
-    image.src = "clear.png"
-  }  
+  }
+  
+  
 }
 function reset() {
     weatherResult.classList.add('none')
     input.value = ''
+    cityName.textContent = 'Enter to search'
     cloudStatus.className = '';
   }
