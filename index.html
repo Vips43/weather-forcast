@@ -21,7 +21,7 @@
   </head>
 
   <body>
-    <main class="flex items-center">
+    <main id="main" class="flex items-center">
       <h1>Weather app</h1>
       <div class="search-input">
         <input type="text" id="input" value="" placeholder="search for cities"/>
@@ -56,13 +56,13 @@
 
           <!-- weather properties section -->
           <div
-            class="weather-property gap-5 flex justify-center flex-wrap m-5 p-5"
+            class="weather-property flex justify-center flex-wrap ml-5"
           >
             <div class="flex flex-col w-30 items-center gap-2 justify-center">
               <i class="fa-solid fa-wind text-3xl"></i>
               <p class="mt-3" id="wind"></p>
             </div>
-            <div class="flex flex-col w-30 items-center gap-2 justify-center">
+            <div class="flex flex-col w-35 items-center gap-2 justify-center">
               <i id="cloud-status" class=""></i>
               <p class="mt-3" id="rain"></p>
             </div>

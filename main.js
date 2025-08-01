@@ -6,7 +6,9 @@ let cloudStatus = document.getElementById("cloud-status");
 let searchImg = document.querySelector('.search-img')
 let image = document.getElementById("image");
 let notFound = document.getElementById("not-found");
+let main = document.getElementById("main");
 let weatherResult = document.querySelector(".result");
+
 
 let API_key = "901be245c2974afa304b1285ac063b38";
 
@@ -65,30 +67,29 @@ async function processData(city) {
   
   function weatherInfo(jsonData) {
     if (
-      jsonData.weather[0].description == "overcast clouds" ||
-      jsonData.weather[0].description == "scattered clouds" ||
-      jsonData.weather[0].description == "broken clouds"
-    ) {
-      cloudStatus.classList.add("fa-solid", "fa-cloud-meatball", "text-3xl");
+      jsonData.weather[0].description == "overcast clouds","broken clouds","scattered clouds") {
+      cloudStatus.classList.add("fa-solid", "fa-cloud", "text-3xl",'rotate');
       image.src = "cloudy.png";
+      image.classList.add('shadow')
+      main.classList.add('cloud')
     } else if (
-      jsonData.weather[0].description == "rain" ||
-      jsonData.weather[0].description == "heavy rain"
-    ) {
-      cloudStatus.classList.add("fa-solid", "fa-cloud-rain", "text-3xl");
-      image.src = "rain.png";
+      jsonData.weather[0].description == "rain","light rain","heavy rain","heavy intensity rain","moderate rain") {
+        image.src = "rain.png";
+        cloudStatus.classList.add("fa-solid", "fa-cloud-rain",'anime', "text-3xl");
+        image.classList.add('shadow')
+        main.classList.add('rainy')
     } else if (
-      jsonData.weather[0].description == "clear sky" ||
-      jsonData.weather[0].description == "clear"
-    ) {
+      jsonData.weather[0].description == "clear sky","clear") {
       cloudStatus.classList.add("fa-solid", "fa-sun", "text-3xl");
       image.src = "clear.png";
     }
     else if (
       jsonData.weather[0].description == "storm"
     ) {
-      cloudStatus.classList.add("fa-solid", "fa-cloud-bolt", "text-3xl");
       image.src = "strom.png";
+      image.classList.add('shadow')
+      cloudStatus.classList.add("fa-solid", "fa-cloud-bolt", "text-3xl");
+      main.classList.add('cloud')
     }
   }
 }
@@ -98,5 +99,7 @@ function reset() {
   input.value = "";
   cityName.textContent = "Enter to search";
   cloudStatus.className = "";
+  notFound.classList.add('none')
   searchImg.classList.remove('none')
+  main.classList.add('cloud','rainy')
 }
