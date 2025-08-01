@@ -27,17 +27,16 @@ async function processData(city) {
   );
 
   let jsonData = await getData.json();
-
+  const windSpeed = jsonData.wind.speed * 3.6;
   if (getData.status == "404") {
     weatherResult.classList.add("none");
     notFound.classList.remove("none");
   } else {
     notFound.classList.add("none");
     weatherResult.classList.remove("none");
-
     cityName.innerText = jsonData.name;
     weatherStatus.innerText = jsonData.weather[0].main;
-    document.getElementById("wind").innerText = jsonData.wind.speed + "km/h";
+    document.getElementById("wind").innerText = windSpeed.toFixed(2) + "km/h";
     document.getElementById("rain").innerText = jsonData.weather[0].description;
     document.getElementById("humidity").innerText =
       jsonData.main.humidity + "%";

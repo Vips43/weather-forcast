@@ -13,14 +13,9 @@ body {
   justify-content: center;
 }
 main {
-  background: linear-gradient(
-    to top,
-    rgb(24, 80, 90),
-    rgb(21, 119, 103),
-    rgb(57, 170, 204)
-  );
-  height: 600px;
-  width: 500px;
+  background: linear-gradient(to top,rgb(24, 80,90),rgb(21, 119, 103),rgb(57, 170, 204));
+  height: auto;
+  width: 420px;
   border: 2px solid #1111115c;
   border-radius: 10px;
   margin: 1rem;
@@ -98,6 +93,7 @@ h1 {
 }
 .resetBtn:hover,.resetBtn:active{
   transform: scale(.9);
+  background-color: rgb(45, 163, 163);
 }
 .result{
   margin-top: 10px;
