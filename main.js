@@ -66,30 +66,29 @@ async function processData(city) {
   }
   
   function weatherInfo(jsonData) {
-    if (
-      jsonData.weather[0].description == "overcast clouds","broken clouds","scattered clouds") {
+    if (jsonData.weather[0].description == "overcast clouds","scattered clouds","clouds") {
       cloudStatus.classList.add("fa-solid", "fa-cloud", "text-3xl",'rotate');
       image.src = "cloudy.png";
       image.classList.add('shadow')
       main.classList.add('cloud')
-    } else if (
-      jsonData.weather[0].description == "rain","light rain","heavy rain","heavy intensity rain","moderate rain") {
-        image.src = "rain.png";
+    }
+    else if (jsonData.weather[0].description == "rain","light rain","heavy rain","heavy intensity rain","moderate rain") {
+      image.src = "rain.png";
+      alert('hello')
         cloudStatus.classList.add("fa-solid", "fa-cloud-rain",'anime', "text-3xl");
         image.classList.add('shadow')
         main.classList.add('rainy')
-    } else if (
-      jsonData.weather[0].description == "clear sky","clear") {
-      cloudStatus.classList.add("fa-solid", "fa-sun", "text-3xl");
-      image.src = "clear.png";
+      }
+      else if (jsonData.weather[0].description == "clear sky","broken clouds","clear") {
+          cloudStatus.classList.add("fa-solid", "fa-sun", "text-3xl");
+          image.src = "clear.png";
+          main.classList.add('clear')
     }
-    else if (
-      jsonData.weather[0].description == "storm"
-    ) {
+    else if (jsonData.weather[0].description == "storm") {
       image.src = "strom.png";
       image.classList.add('shadow')
       cloudStatus.classList.add("fa-solid", "fa-cloud-bolt", "text-3xl");
-      main.classList.add('cloud')
+      main.classList.add('storm')
     }
   }
 }
