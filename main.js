@@ -3,6 +3,7 @@ let searchBtn = document.querySelector("#search");
 let cityName = document.getElementById("city-name");
 let weatherStatus = document.getElementById("status");
 let cloudStatus = document.getElementById("cloud-status");
+let searchImg = document.querySelector('.search-img')
 let image = document.getElementById("image");
 let notFound = document.getElementById("not-found");
 let weatherResult = document.querySelector(".result");
@@ -18,6 +19,7 @@ searchBtn.addEventListener("click", () => {
   else {
     let cityName = input.value.trim();
     processData(cityName);
+    
   }
 });
 
@@ -25,13 +27,18 @@ async function processData(city) {
   const getData = await fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=901be245c2974afa304b1285ac063b38`
   );
-
+  
   let jsonData = await getData.json();
-  const windSpeed = jsonData.wind.speed * 3.6;
+  
   if (getData.status == "404") {
     weatherResult.classList.add("none");
     notFound.classList.remove("none");
+    searchImg.classList.add('none')
+    
   } else {
+    const windSpeed = jsonData.wind.speed * 3.6;
+    
+    searchImg.classList.add('none')
     notFound.classList.add("none");
     weatherResult.classList.remove("none");
     cityName.innerText = jsonData.name;
@@ -42,20 +49,20 @@ async function processData(city) {
       jsonData.main.humidity + "%";
     document.getElementById("temp").innerText =
       Math.floor(jsonData.main.temp - 273.15) + "°C";
-
+    
     const sunrise = new Date(jsonData.sys.sunrise * 1000);
     const sunset = new Date(jsonData.sys.sunset * 1000);
-
+    
     document.getElementById(
       "rise"
     ).innerText = `sun rise on :- ${sunrise.toLocaleTimeString()}`;
     document.getElementById(
       "set"
     ).innerText = `sun sets on :- ${sunset.toLocaleTimeString()}`;
-
+    
     weatherInfo(jsonData);
   }
-
+  
   function weatherInfo(jsonData) {
     if (
       jsonData.weather[0].description == "overcast clouds" ||
@@ -77,11 +84,19 @@ async function processData(city) {
       cloudStatus.classList.add("fa-solid", "fa-sun", "text-3xl");
       image.src = "clear.png";
     }
+    else if (
+      jsonData.weather[0].description == "storm"
+    ) {
+      cloudStatus.classList.add("fa-solid", "fa-cloud-bolt", "text-3xl");
+      image.src = "strom.png";
+    }
   }
 }
+
 function reset() {
   weatherResult.classList.add("none");
   input.value = "";
   cityName.textContent = "Enter to search";
   cloudStatus.className = "";
+  searchImg.classList.remove('none')
 }
