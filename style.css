@@ -84,9 +84,11 @@ h1 {
   width: 70%;
   margin-top: 1rem;
   color: white;
+  transition: opacity .2s;
 }
 .none{
   display: none;
+  opacity: 0;;
 }
 .resetBtn{
   padding: 5px 10px;
