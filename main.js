@@ -14,12 +14,13 @@ cloudStatus.className = "";
 searchBtn.addEventListener("click", () => {
   if (input.value == "") {
     cityName.textContent = "enter city name to find";
-  } else {
+  }
+  else {
     let cityName = input.value.trim();
     processData(cityName);
   }
 });
-error;
+
 async function processData(city) {
   const getData = await fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=901be245c2974afa304b1285ac063b38`
@@ -32,7 +33,7 @@ async function processData(city) {
     notFound.classList.remove("none");
   } else {
     notFound.classList.add("none");
-    weatherResult.classList.toggle("none");
+    weatherResult.classList.remove("none");
 
     cityName.innerText = jsonData.name;
     weatherStatus.innerText = jsonData.weather[0].main;
