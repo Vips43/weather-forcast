@@ -67,7 +67,7 @@ async function processData(city) {
 
   //real time weather description update
   function weatherInfo(jsonData){
-    if (jsonData.weather[0].description == "overcast clouds" || jsonData.weather[0].description == "scattered clouds" || jsonData.weather[0].description == "clouds"){
+    if (jsonData.weather[0].description == "overcast clouds" || jsonData.weather[0].description == "scattered clouds" || jsonData.weather[0].main == "Clouds"){
       cloudStatus.classList.add("fa-solid","fa-cloud","text-3xl",'rotate');
       image.src = "cloudy.png";
       image.classList.add('shadow')
@@ -84,6 +84,7 @@ async function processData(city) {
       else if (jsonData.weather[0].description == "clear sky" || jsonData.weather[0].description == "broken clouds" || jsonData.weather[0].description == "clear") {
           cloudStatus.classList.add("fa-solid", "fa-sun", "text-3xl");
           image.src = "clears.png";
+          image.classList.add('sun-shadow')
           main.style.background = "linear-gradient(to bottom, white, lightblue, skyblue)"
     }
     else if (jsonData.weather[0].description == "storm") {
