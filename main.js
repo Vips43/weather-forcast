@@ -84,7 +84,7 @@ async function processData(city) {
       else if (jsonData.weather[0].description == "clear sky" || jsonData.weather[0].description == "broken clouds" || jsonData.weather[0].description == "clear") {
           cloudStatus.classList.add("fa-solid", "fa-sun", "text-3xl");
           image.src = "clears.png";
-          main.style.background = "#77BEF0"
+          main.style.background = "linear-gradient(to bottom, white, lightblue, skyblue)"
     }
     else if (jsonData.weather[0].description == "storm") {
       image.src = "strom.png";
