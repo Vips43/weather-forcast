@@ -105,3 +105,5 @@ function reset() {
   searchImg.classList.remove('none')
   main.style.background = "#B2B0E8"
 }
+
+// updated on 12:52
