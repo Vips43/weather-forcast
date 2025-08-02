@@ -71,27 +71,26 @@ async function processData(city) {
       cloudStatus.classList.add("fa-solid","fa-cloud","text-3xl",'rotate');
       image.src = "cloudy.png";
       image.classList.add('shadow')
-      main.classList.add('cloud')
+      main.style.background = "rgb(161, 159, 159)"
     }
     else if (jsonData.weather[0].description == "rain" || jsonData.weather[0].description == "light rain" || jsonData.weather[0].description == "heavy rain" || jsonData.weather[0].description == "heavy intensity rain" || jsonData.weather[0].description == "moderate rain"){
-      image.src = "rain.png";
-      alert('hello')
-        cloudStatus.classList.add("fa-solid" || jsonData.weather[0].description ==  "fa-cloud-rain" || jsonData.weather[0].description == 'anime' || jsonData.weather[0].description ==  "text-3xl");
+
+      
+        image.src = "rain.png";
+        cloudStatus.classList.add("fa-solid","fa-cloud-rain","text-3xl",'rotate', "text-3xl");
         image.classList.add('shadow')
-        main.classList.add('rainy')
+        main.style.background = "linear-gradient(to top,rgb(24, 80,90),rgb(21, 119, 103),rgb(57, 170, 204))"
       }
-      else if (jsonData.weather[0].description == "clear sky","broken clouds","clear") {
+      else if (jsonData.weather[0].description == "clear sky" || jsonData.weather[0].description == "broken clouds" || jsonData.weather[0].description == "clear") {
           cloudStatus.classList.add("fa-solid", "fa-sun", "text-3xl");
           image.src = "clears.png";
-          main.classList.add('clear')
+          main.style.background = "#77BEF0"
     }
     else if (jsonData.weather[0].description == "storm") {
       image.src = "strom.png";
       image.classList.add('shadow')
       cloudStatus.classList.add("fa-solid", "fa-cloud-bolt", "text-3xl");
-      main.classList.add('storm')
-    }else{
-      return
+      main.style.background = "rgb(82, 81, 81);"
     }
   }
 }
@@ -103,5 +102,5 @@ function reset() {
   cloudStatus.className = "";
   notFound.classList.add('none')
   searchImg.classList.remove('none')
-  main.classList.add('cloud','rainy')
+  main.style.background = "#B2B0E8"
 }
