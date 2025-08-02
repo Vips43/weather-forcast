@@ -12,7 +12,6 @@ let weatherResult = document.querySelector(".result");
 
 let API_key = "901be245c2974afa304b1285ac063b38";
 
-cloudStatus.className = "";
 
 searchBtn.addEventListener("click", () => {
   if (input.value == "") {
@@ -65,23 +64,25 @@ async function processData(city) {
     weatherInfo(jsonData);
   }
   
-  function weatherInfo(jsonData) {
-    if (jsonData.weather[0].description == "overcast clouds","scattered clouds","clouds") {
-      cloudStatus.classList.add("fa-solid", "fa-cloud", "text-3xl",'rotate');
+
+  //real time weather description update
+  function weatherInfo(jsonData){
+    if (jsonData.weather[0].description == "overcast clouds" || jsonData.weather[0].description == "scattered clouds" || jsonData.weather[0].description == "clouds"){
+      cloudStatus.classList.add("fa-solid","fa-cloud","text-3xl",'rotate');
       image.src = "cloudy.png";
       image.classList.add('shadow')
       main.classList.add('cloud')
     }
-    else if (jsonData.weather[0].description == "rain","light rain","heavy rain","heavy intensity rain","moderate rain") {
+    else if (jsonData.weather[0].description == "rain" || jsonData.weather[0].description == "light rain" || jsonData.weather[0].description == "heavy rain" || jsonData.weather[0].description == "heavy intensity rain" || jsonData.weather[0].description == "moderate rain"){
       image.src = "rain.png";
       alert('hello')
-        cloudStatus.classList.add("fa-solid", "fa-cloud-rain",'anime', "text-3xl");
+        cloudStatus.classList.add("fa-solid" || jsonData.weather[0].description ==  "fa-cloud-rain" || jsonData.weather[0].description == 'anime' || jsonData.weather[0].description ==  "text-3xl");
         image.classList.add('shadow')
         main.classList.add('rainy')
       }
       else if (jsonData.weather[0].description == "clear sky","broken clouds","clear") {
           cloudStatus.classList.add("fa-solid", "fa-sun", "text-3xl");
-          image.src = "clear.png";
+          image.src = "clears.png";
           main.classList.add('clear')
     }
     else if (jsonData.weather[0].description == "storm") {
@@ -89,6 +90,8 @@ async function processData(city) {
       image.classList.add('shadow')
       cloudStatus.classList.add("fa-solid", "fa-cloud-bolt", "text-3xl");
       main.classList.add('storm')
+    }else{
+      return
     }
   }
 }
