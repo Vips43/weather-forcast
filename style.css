@@ -88,10 +88,11 @@ h1 {
   border-radius: 10px;
   border:none;
   background-color: transparent;
-  box-shadow: 0 10px 10px rgb(52, 119, 119);
+  box-shadow: 0 2px 5px rgb(52, 119, 119);
 }
 .resetBtn:hover,.resetBtn:active{
   transform: scale(.9);
+  box-shadow: 0 2px 5px rgb(52, 119, 119) inset;
 }
 .result{
   margin-top: 10px;
