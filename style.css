@@ -1,9 +1,10 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  transition: all .5s
+  transition: all .2s
 }
+
 body {
   height: 100vh;
   width: 100%;
@@ -11,9 +12,10 @@ body {
   align-items: center;
   justify-content: center;
 }
+
 #main {
-  background: #B2B0E8;
-  height: 600px;
+  background: #9699BE;
+  height: 550px;
   width: 415px;
   border-radius: 10px;
   margin: 1rem;
@@ -23,13 +25,16 @@ body {
   flex-direction: column;
   box-shadow: 1px 5px 20px grey;
   transition: background .2s;
+  box-shadow: 0 10px 25px #42445A;
 }
+
 h1 {
   font-size: 1.5rem;
   font-weight: 400;
   justify-self: flex-start;
   
 }
+
 .search-input {
   margin: 1rem;
   width: fit-content;
@@ -42,6 +47,7 @@ h1 {
   overflow: hidden;
   background: transparent;
   box-shadow: 5px 2px 10px grey inset;
+
   #input {
     width: 200px;
     height: 100%;
@@ -56,10 +62,12 @@ h1 {
     transition: all 0.5s;
   }
 }
-#input::placeholder{
+
+#input::placeholder {
   background-color: transparent;
 }
-.search-input > #search {
+
+.search-input>#search {
   font-size: 1.5rem;
   width: 3rem;
   color: rgb(0, 0, 0);
@@ -67,13 +75,20 @@ h1 {
   transition: all 0.5s;
   cursor: pointer;
 }
+
+#search:hover .search-input {
+  box-shadow: none;
+}
+
 .weather-img {
   margin-top: 1rem;
   width: 20%;
+
   img {
     width: 100%;
   }
 }
+
 .loader{
   width: 40px;
   height: 40px;
@@ -96,35 +111,41 @@ h1 {
   color: white;
   transition: opacity .2s;
 }
-.none{
+
+.none {
   display: none;
-  opacity: 0;;
+  opacity: 0;
+  ;
 }
-.resetBtn{
+
+.resetBtn {
   padding: 5px 10px;
   border-radius: 10px;
-  border:none;
+  border: none;
   background-color: transparent;
   box-shadow: 0 2px 5px rgb(52, 119, 119);
+  
 }
 .resetBtn:active{
   transform: scale(.9);
   box-shadow: 0 2px 5px rgb(52, 119, 119) inset;
 }
-.result{
+
+.result {
   margin-top: 10px;
   height: auto;
 }
-.search-img{
+
+.search-img {
   width: 60%;
   margin: 20px;
-  
   overflow: hidden;
-  h2{
+  h2 {
     text-align: center;
     margin: 10px;
   }
-  img{
+  
+  img {
     width: 100%;
     border-radius: 20px;
   }
@@ -132,47 +153,65 @@ h1 {
 
 
 /* extra classes */
-.clear{
+.clear {
   background: #77BEF0;
 }
-.rainy{
-  background: linear-gradient(to top,rgb(24, 80,90),rgb(21, 119, 103),rgb(57, 170, 204));
+
+.rainy {
+  background: linear-gradient(to top, rgb(24, 80, 90), rgb(21, 119, 103), rgb(57, 170, 204));
+  color: #BABCCD;
 }
-.cloud{
+
+.cloud {
   background: rgb(161, 159, 159);
   color: white;
 }
-.storm{
+
+.storm {
   background: rgb(82, 81, 81);
 }
-.shadow{
-  text-shadow: 5px 10px 20px rgb(202, 194, 194);
 
+.shadow {
+  text-shadow: 5px 10px 20px rgb(202, 194, 194);
+  
 }
-.sun-shadow{
+
+.sun-shadow {
   text-shadow: 2px 10px 25px rgb(196, 196, 85);
 }
-.anime{
+
+.anime {
   animation: pulse .3s infinite;
 }
-.rotate{
+
+.rotate {
   animation: rotate .9s alternate-reverse infinite;
   transition: animation .5s;
 }
-@keyframes pulse{
-  0%{
+
+@keyframes pulse {
+  0% {
     scale: .9;
   }
-  100%{
+  
+  100% {
     scale: 1;
   }
 }
-@keyframes rotate{
-  0%{
+
+@keyframes rotate {
+  0% {
     rotate: -20deg;
   }
   
-  100%{
+  100% {
     rotate: 20deg;
+  }
+}
+
+@media (max-width: 600px) {
+  .resetBtn:active {
+    transform: scale(.9);
+    box-shadow: 0 2px 5px rgb(52, 119, 119) inset;
   }
 }
