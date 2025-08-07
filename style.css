@@ -21,6 +21,7 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
+  box-shadow: 1px 5px 20px grey;
   transition: background .2s;
 }
 h1 {
@@ -73,6 +74,22 @@ h1 {
     width: 100%;
   }
 }
+.loader{
+  width: 40px;
+  height: 40px;
+  border: 2px solid white;
+  border-radius: 50%;
+  border-bottom: 5px solid transparent;
+  animation: spin 1s infinite;
+}
+@keyframes spin{
+  0%{
+    rotate: 0;
+  }
+  100%{
+    rotate: 360deg;
+  }
+}
 .weather-property {
   width: 70%;
   margin-top: 1rem;
@@ -88,10 +105,11 @@ h1 {
   border-radius: 10px;
   border:none;
   background-color: transparent;
-  box-shadow: 0 10px 10px rgb(52, 119, 119);
+  box-shadow: 0 2px 5px rgb(52, 119, 119);
 }
-.resetBtn:hover,.resetBtn:active{
+.resetBtn:active{
   transform: scale(.9);
+  box-shadow: 0 2px 5px rgb(52, 119, 119) inset;
 }
 .result{
   margin-top: 10px;
