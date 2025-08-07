@@ -74,10 +74,9 @@ async function processData(city) {
   function weatherInfo(jsonData) {
     if (jsonData.weather[0].description == "overcast clouds" || jsonData.weather[0].description == "scattered clouds" || jsonData.weather[0].main == "Clouds") {
       cloudStatus.classList.add("fa-solid", "fa-cloud", "text-3xl", 'rotate');
-      loader.style.display = 'block'
       setTimeout(() => {
-        image.src = "cloudy.png";
         loader.style.display = 'none'
+        image.src = "cloudy.png";
       }, 1000)
 
       image.classList.add('shadow')
@@ -86,25 +85,10 @@ async function processData(city) {
     }
     else if (jsonData.weather[0].description == "rain" || jsonData.weather[0].description == "light rain" || jsonData.weather[0].description == "heavy rain" || jsonData.weather[0].description == "heavy intensity rain" || jsonData.weather[0].description == "moderate rain") {
 
-
-      image.src = "rain.png";
-      cloudStatus.classList.add("fa-solid", "fa-cloud-rain", "text-3xl", 'rotate', "text-3xl");
-      image.classList.add('shadow')
-      main.style.background = "linear-gradient(to top,rgb(24, 80,90),rgb(21, 119, 103),rgb(57, 170, 204))"
-
-    }
-    else if (jsonData.weather[0].description == "clear sky" || jsonData.weather[0].description == "broken clouds" || jsonData.weather[0].description == "clear") {
-      cloudStatus.classList.add("fa-solid", "fa-sun", "text-3xl");
-      image.src = "clears.png";
-      image.classList.add('sun-shadow')
-      main.style.background = "linear-gradient(to bottom, white, lightblue, skyblue)"
-    }
-    else if (jsonData.weather[0].description == "rain" || jsonData.weather[0].description == "light rain" || jsonData.weather[0].description == "heavy rain" || jsonData.weather[0].description == "heavy intensity rain" || jsonData.weather[0].description == "moderate rain") {
-
       loader.style.display = 'block'
       setTimeout(() => {
-        image.src = "rain.png";
         loader.style.display = 'none'
+        image.src = "rain.png";
       }, 1000)
       cloudStatus.classList.add("fa-solid", "fa-cloud-rain", "text-3xl", 'rotate', "text-3xl");
       image.classList.add('shadow')
@@ -115,8 +99,8 @@ async function processData(city) {
       cloudStatus.classList.add("fa-solid", "fa-sun", "text-3xl");
       loader.style.display = 'block'
       setTimeout(() => {
-        image.src = "clears.png";
         loader.style.display = 'none'
+        image.src = "clears.png";
       }, 1000)
       image.classList.add('sun-shadow')
       main.style.background = "linear-gradient(to bottom, white, lightblue, skyblue)"
@@ -125,8 +109,8 @@ async function processData(city) {
 
       loader.style.display = 'block'
       setTimeout(() => {
-        image.src = "strom.png";
         loader.style.display = 'none'
+        image.src = "strom.png";
       }, 1000)
       image.classList.add('shadow')
       cloudStatus.classList.add("fa-solid", "fa-cloud-bolt", "text-3xl");
@@ -146,4 +130,3 @@ function reset() {
   main.style.color = 'black'
 }
 
-// updated on 12:52
