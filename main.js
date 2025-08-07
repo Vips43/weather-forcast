@@ -32,6 +32,7 @@ async function processData(city) {
   let jsonData = await getData.json();
   
   if (getData.status == "404") {
+    main.style.background = "white"
     weatherResult.classList.add("none");
     notFound.classList.remove("none");
     searchImg.classList.add('none')
