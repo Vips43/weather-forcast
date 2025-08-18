@@ -200,7 +200,6 @@ h1 {
     scale: 1;
   }
 }
-
 @keyframes rotate {
   0% {
     rotate: -20deg;
