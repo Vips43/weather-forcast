@@ -212,3 +212,6 @@ h1 {
 i:hover{
   transform: scale(1.2);
 }
+#set,#rise{
+  font-size: small;
+}
