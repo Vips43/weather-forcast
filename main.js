@@ -36,12 +36,13 @@ function searchBtn() {
     getData(cityName);
 
   } else {
-    search.classList.replace('fa-rotate-right', 'fa-search');
-    input.disabled = false; //enable input again
-    input.value = "";  //set input value blank
-    mainSection.style.transform = 'scale(0)'; 
-    mainContainer.style.backgroundImage = `url('imgs/search.jpg')`;
-    vanish.forEach(v => v.classList.remove('active'));
+    // search.classList.replace('fa-rotate-right', 'fa-search');
+    // input.disabled = false; //enable input again
+    // input.value = "";  //set input value blank
+    // mainSection.style.transform = 'scale(0)'; 
+    // mainContainer.style.backgroundImage = `url('imgs/search.jpg')`;
+    // vanish.forEach(v => v.classList.remove('active'));
+    location.reload()
   }
 }
 
