@@ -5,96 +5,92 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
-    integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0&icon_names=sunny" />
-  <title>Weather ☁️ 🌡️ forcast</title>
+
+  <title>Weather☁️forcast</title>
 
   <!-- HTML -->
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"/>
   <!-- Custom Styles -->
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  <main id="main" class="flex items-center">
-    <h1>Weather app</h1>
-    <div class="search-input">
-      <input type="text" id="input" value="" placeholder="search for cities" />
-      <i id="search" class="fa-solid fa-magnifying-glass"></i>
-    </div>
-    <button onclick="reset()" class="resetBtn">Clear</button>
-    <!-- loader -->
-    <!-- <div class="loader"></div> -->
-    <!-- loader ends -->
-
-    <!-- enter to search start -->
-    <div class="search-img">
-
-      <img src="search.jpg" alt="">
-    </div>
-    <!-- enter to search ends -->
-    <!-- Not found Massage -->
-    <div id="not-found" class="none flex flex-col gap-5">
-      <p class="text-center">City not found enter correct name</p>
-      <img class="rounded-3xl w-80" src="error2.png" alt="">
-    </div>
-    <!-- Not found Massage ends-->
-
-
-
-
-    <!-- weather app properties -->
-
-    <div class="result none p-3 mt-8 flex flex-col justify-center items-center gap-5">
-
-      <p id="city-name" class="text-center font-bold text-2xl"></p>
-      <div class="justify-around items-center flex">
-        <div class="weather-img flex flex-col items-center gap-5">
-          <img class="text-shadow-lg" src="" alt="" id="image" />
-          <span class="font-bold text-white" id="status"></span>
-        </div>
-
-        <!-- weather properties section -->
-        <div class="weather-property gap-1.5 flex justify-center flex-wrap ml-5">
-          <div class="flex flex-col w-30 items-center gap-2 justify-center">
-            <i class="fa-solid fa-wind text-3xl"></i>
-            <p class="mt-3" id="wind"></p>
+    <main class="main-container">
+      <!-- <img src="imgs/not-founded.jpg" alt=""> -->
+      <section class="Weather-container">
+        <header>
+          <div class="heading">
+            <h2>Weather App</h2>
           </div>
-          <div class="flex flex-col w-35 items-center gap-2 justify-center">
-            <i id="cloud-status" class=""></i>
-            <p class="mt-3" id="rain"></p>
+          <div class="input-box">
+            <input type="text" id="input" placeholder="Search for city">
+            <i onclick="searchBtn()" class="searchIcon fa-solid fa-search"></i>
           </div>
-          <div class="flex flex-col w-30 items-center gap-2 justify-center">
-            <i class="fa-solid fa-droplet text-3xl"></i>
-            <p class="mt-3" id="humidity"></p>
-          </div>
-          <div class="flex flex-col w-30 items-center gap-2 justify-center">
-            <i class="fa-solid fa-temperature-high text-3xl"></i>
-            <p class="mt-3" id="temp"></p>
-          </div>
-        </div>
-        <!-- weather properties section close -->
-      </div>
+        </header>
 
-      <!-- sunrise and sunset section -->
-      <div class="flex m-5 justify-around w-[90%]">
-        <div class="flex flex-col justify-center items-center">
-          <img src="sunny.png" alt="" srcset="" />
-          <p class="mt-3" id="rise"></p>
+        <div class="popup">
+          <p>something went  wrong</p>
         </div>
-        <div class="flex flex-col justify-center items-center">
-          <img src="moon.png" alt="" />
-          <p class="m-3 text-[10px]" id="set"></p>
-        </div>
-      </div>
-      <!-- sunrise and sunset section ends -->
-    </div>
-    <!-- weather app properties -->
-  </main>
-  <!-- Project -->
+          <!-- main section -->
+          <main class="main-section">
+            <!--city name -->
+            <div class="city-name vanish">
+              
+              <h3 id="locationName" class="white"></h3>
+            </div>
+
+            <!-- weather container all properties -->
+            <div class="weather-header">
+              <div class="status-img vanish">
+                <img src="" alt="">
+                <span id="description" class="curr-status white">Clear</span>
+              </div>
+
+              <div class="weather-properties">
+                <div class="weather-info vanish">
+                  <span class="wind-status dark">wind</span>
+                  <i class="fa-solid fa-wind dark"></i>
+                  <span id="wind" class="wind-status dark"></span>
+                </div>
+                <div class="weather-info vanish">
+                  <span class="cloud-status dark">Status</span>
+                  <i class="fa-regular fa-cloud dark"></i>
+                  <span id="cloud" class="cloud-status dark"></span>
+                </div>
+                <div class="weather-info vanish">
+                  <span class="humid-status dark">Humid</span>
+                  <i class="fa-solid fa-droplet dark"></i>
+                  <span id="humid" class="humid-status dark"></span>
+                </div>
+                <div class="weather-info vanish">
+                  <span class="temp-status dark">Temp</span>
+                  <i class="fa-solid fa-temperature-high dark"></i>
+                  <span id="temp" class="temp-status dark"></span>
+                </div>
+              </div>
+            </div>
+            <div class="weather-bottom">
+              <div class="sun-rise vanish">
+                <!-- <img src="imgs/sunny.png" alt=""> -->
+                <p id="rise"></p>
+              </div>
+              <div class="sun-set vanish">
+                <!-- <img src="imgs/moon.png" alt=""> -->
+                <p id="set"></p>
+              </div>
+            </div>
+
+
+            
+            <!-- weather container all properties ends -->
+
+          </main>
+          <!-- main section ends-->
+
+        
+      </section>
+    </main>
+
   <script src="main.js"></script>
 </body>
 

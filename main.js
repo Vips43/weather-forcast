@@ -1,121 +1,184 @@
-let input = document.querySelector("#input");
-let searchBtn = document.querySelector("#search");
-let cityName = document.getElementById("city-name");
-let weatherStatus = document.getElementById("status");
-let cloudStatus = document.getElementById("cloud-status");
-let searchImg = document.querySelector('.search-img')
-let image = document.getElementById("image");
-let notFound = document.getElementById("not-found");
-let main = document.getElementById("main");
-let weatherResult = document.querySelector(".result");
-let loader = document.querySelector(".loader");
+let search = document.querySelector(".searchIcon"),
+  input = document.getElementById("input"),
+  wind = document.getElementById("wind"),
+  cloud = document.getElementById("cloud"),
+  humid = document.getElementById("humid"),
+  rise = document.getElementById("rise"),
+  set = document.getElementById("set"),
+  locationName = document.getElementById("locationName"),
+  temp = document.getElementById("temp"),
+  description = document.getElementById("description"),
+  mainContainer = document.querySelector('.main-container'),
+  dark = document.querySelector('.dark'),
+  mainSection = document.querySelector('.main-section'),
+  weatherImg = document.querySelector('.status-img img'),
+  vanish = document.querySelectorAll('.vanish')
+popup = document.querySelector('.popup p')
+
+//  add vanish effect once at the start
 
 
-let API_key = "901be245c2974afa304b1285ac063b38";
+if (window.innerWidth > 768) input.focus();
+function searchBtn() {
 
-
-searchBtn.addEventListener("click", () => {
-  if (input.value == "") {
-    cityName.textContent = "enter city name to find";
+  console.log('clicked');
+  if (input.value == '') {
+    popupMenu();
+    return
   }
-  else {
-    let cityName = input.value.trim();
-    setTimeout(()=>{
-      processData(cityName);
-    },2000)
-    main.style.color = 'black'
-
-  }
-});
-
-async function processData(city) {
-  const getData = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=901be245c2974afa304b1285ac063b38`
-  );
-
-  let jsonData = await getData.json();
-
-  if (getData.status == "404") {
-    main.style.background = "white"
-    weatherResult.classList.add("none");
-    notFound.classList.remove("none");
-    searchImg.classList.add('none')
-    main.style.background = 'white'
+  if (search.classList.contains('fa-search')) {
+    input.disabled = true; //input disabled once fetched
+    const cityName = input.value.trim(); //get input value
+    search.classList.replace('fa-search', 'fa-rotate-right'); 
+    
+    vanish.forEach(v => v.classList.add('active')); //extra animation
+    mainSection.style.transform = 'scale(1)';  //display main section
+    getData(cityName);
 
   } else {
-
-    const windSpeed = jsonData.wind.speed * 3.6;
-
-    searchImg.classList.add('none')
-    notFound.classList.add("none");
-    weatherResult.classList.remove("none");
-    cityName.innerText = jsonData.name;
-    weatherStatus.innerText = jsonData.weather[0].main;
-    document.getElementById("wind").innerText = windSpeed.toFixed(2) + "km/h";
-    document.getElementById("rain").innerText = jsonData.weather[0].description;
-    document.getElementById("humidity").innerText =
-      jsonData.main.humidity + "%";
-    document.getElementById("temp").innerText =
-      Math.floor(jsonData.main.temp - 273.15) + "°C";
-
-    const sunrise = new Date(jsonData.sys.sunrise * 1000);
-    const sunset = new Date(jsonData.sys.sunset * 1000);
-
-    document.getElementById(
-      "rise"
-    ).innerText = `sun rise on :- ${sunrise.toLocaleTimeString()}`;
-    document.getElementById(
-      "set"
-    ).innerText = `sun sets on :- ${sunset.toLocaleTimeString()}`;
-    weatherInfo(jsonData);
-  }
-
-
-
-
-  //real time weather description update
-  function weatherInfo(jsonData) {
-    if (jsonData.weather[0].description == "overcast clouds" || jsonData.weather[0].description == "scattered clouds" || jsonData.weather[0].main == "Clouds") {
-      cloudStatus.classList.add("fa-solid", "fa-cloud", "text-3xl", 'rotate');
-      image.src = "cloudy.png";
-      image.classList.add('shadow')
-      main.style.backgroundImage = "linear-gradient(to bottom, #483E3E, #585858, #848A9B, #BABCCD)"
-      main.style.color = 'white'
-    }
-    else if (jsonData.weather[0].description == "rain" || jsonData.weather[0].description == "light rain" || jsonData.weather[0].description == "heavy rain" || jsonData.weather[0].description == "heavy intensity rain" || jsonData.weather[0].description == "moderate rain") {
-
-      image.src = "rain.png";
-      cloudStatus.classList.add("fa-solid", "fa-cloud-rain", "text-3xl", 'rotate', "text-3xl");
-      image.classList.add('shadow')
-      main.style.background = "linear-gradient(to top,rgb(24, 80,90),rgb(21, 119, 103),rgb(57, 170, 204))"
-    }
-    else if (jsonData.weather[0].description == "clear sky" || jsonData.weather[0].description == "broken clouds" || jsonData.weather[0].description == "clear") {
-
-      cloudStatus.classList.add("fa-solid", "fa-sun", "text-3xl");
-
-      image.src = "clears.png";
-
-      image.classList.add('sun-shadow')
-      main.style.background = "linear-gradient(to bottom, white, lightblue, skyblue)"
-    }
-    else if (jsonData.weather[0].description == "storm") {
-      image.src = "strom.png";
-      image.classList.add('shadow')
-      cloudStatus.classList.add("fa-solid", "fa-cloud-bolt", "text-3xl");
-      main.style.background = "rgb(82, 81, 81);"
-    }
+    search.classList.replace('fa-rotate-right', 'fa-search');
+    input.disabled = false; //enable input again
+    input.value = "";  //set input value blank
+    mainSection.style.transform = 'scale(0)'; 
+    mainContainer.style.backgroundImage = `url('imgs/search.jpg')`;
+    vanish.forEach(v => v.classList.remove('active'));
   }
 }
 
-function reset() {
-  weatherResult.classList.add("none");
-  input.value = "";
-  cityName.textContent = "Enter to search";
-  cloudStatus.className = "";
-  notFound.classList.add('none')
-  searchImg.classList.remove('none')
-  main.style.background = "#9699BE"
-  main.style.color = 'black'
+
+
+const APIkey = `517063abfe0dfc60763f72daff350118`;
+
+async function getData(city) {
+
+  try {
+    if (!city || city.trim() === "") {
+      mainContainer.style.backgroundImage = `url('imgs/search.jpg')`
+      mainSection.style.display = 'none'
+      return;
+    }
+
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${APIkey}&units=metric`);
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        mainContainer.style.background = `url('imgs/not-found.jpg')`
+        mainSection.style.display = 'none'
+        throw new Error("city not found. Please enter a valid city name.")
+      } else {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+
+    }
+    const jsonData = await response.json();
+
+    setWeatherProperties(jsonData, city)
+
+
+  } catch (error) {
+    mainSection.style.display = 'none'
+
+    popupMenu();
+    popup.textContent = 'Something went wrong. Please try again.'
+    console.error(error);
+  }
+};
+
+function setWeatherProperties(data, city) {
+  var windSpeed = data.wind.speed * 3.6
+  const sunrise = new Date(data.sys.sunrise * 1000);
+  const sunset = new Date(data.sys.sunset * 1000);
+
+  locationName.innerHTML = `<i class="fa-solid fa-location-dot"></i> ${city.toUpperCase()}`
+  description.textContent = data.weather[0].description
+  temp.textContent = `${Math.round(data.main.temp)} °C`
+  humid.textContent = data.main.humidity + "%"
+  cloud.textContent = data.weather[0].main
+  wind.textContent = windSpeed.toFixed(2) + ' km/h'
+
+  const options = { hour: "2-digit", minute: "2-digit" };
+  rise.innerHTML = `<b>Sunrise: </b> ${sunrise.toLocaleTimeString([], options)} am`;
+  set.innerHTML = `<b>Sunset: </b> ${sunset.toLocaleTimeString([], options)} pm`;
+
+  setBackground(cloud.textContent);
+}
+
+function setBackground(data) {
+  switch (data) {
+    case "Clouds":
+      mainContainer.style.backgroundImage = `url('imgs/cloud.jpg')`;
+      weatherImg.src = 'imgs/cloudy.png';
+      dark.style.color = 'white';
+      break;
+
+    case "Rain":
+      mainContainer.style.backgroundImage = `url('imgs/rainn.gif')`;
+      weatherImg.src = 'imgs/rain.gif';
+      dark.style.color = 'black';
+      break;
+
+    case "Clear":
+      mainContainer.style.backgroundImage = `url('imgs/clear.jpeg')`;
+      weatherImg.src = 'imgs/clear.png';
+      dark.style.color = 'white';
+      break;
+
+    case "Snow":
+      mainContainer.style.backgroundImage = `url('imgs/snow.jpg')`;
+      weatherImg.src = 'imgs/snow.gif';
+      dark.style.color = 'black';
+      break;
+
+    case "Mist":
+    case "Fog":
+    case "Haze":
+      mainContainer.style.backgroundImage = `url('imgs/mist.jpg')`;
+      weatherImg.src = 'imgs/mist.gif';
+      dark.style.color = 'white';
+      break;
+
+    case "Thunderstorm":
+      mainContainer.style.backgroundImage = `url('imgs/thunder.jpg')`;
+      weatherImg.src = 'imgs/thunder.gif';
+      dark.style.color = 'white';
+      break;
+
+    case "Drizzle":
+      mainContainer.style.backgroundImage = `url('imgs/drizzle.jpg')`;
+      weatherImg.src = 'imgs/drizzle.gif';
+      dark.style.color = 'black';
+      break;
+
+    case "Smoke":
+    case "Dust":
+    case "Sand":
+      mainContainer.style.backgroundImage = `url('imgs/dust.jpg')`;
+      weatherImg.src = 'imgs/dust.gif';
+      dark.style.color = 'white';
+      break;
+
+    case "Tornado":
+      mainContainer.style.backgroundImage = `url('imgs/tornado.jpg')`;
+      weatherImg.src = 'imgs/tornado.gif';
+      dark.style.color = 'white';
+      break;
+
+    default:
+      // Fallback if condition not handled
+      mainContainer.style.backgroundImage = `url('imgs/default.jpg')`;
+      weatherImg.src = '';
+      dark.style.color = 'white';
+      break;
+  }
 }
 
 
+//quick popup toggle 
+function popupMenu() {
+  popup.textContent = "Please enter a city name";
+    popup.parentElement.classList.add('active')
+    setTimeout(() => {
+      popup.parentElement.classList.remove('active')
+    }, 3000);
+}
