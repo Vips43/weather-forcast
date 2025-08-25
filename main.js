@@ -13,33 +13,35 @@ let search = document.querySelector(".searchIcon"),
   mainSection = document.querySelector('.main-section'),
   weatherImg = document.querySelector('.status-img img'),
   vanish = document.querySelectorAll('.vanish')
-  popup = document.querySelector('.popup p')
+popup = document.querySelector('.popup p')
 
 //  add vanish effect once at the start
 
 
-if (window.innerWidth > 768) input.focus();
+if (window.innerWidth > 700) input.focus();
 function searchBtn() {
 
-  console.log('clicked');
   if (input.value == '') {
+    popup.textContent = 'Please enter city name';
     popupMenu();
     return
   }
-  if (search.classList.contains('fa-search')) {
-    input.disabled = true; //input disabled once fetched
-    const cityName = input.value.trim(); //get input value
-    search.classList.replace('fa-search', 'fa-rotate-right'); 
-    
-    vanish.forEach(v => v.classList.add('active')); //extra animation
-    mainSection.style.transform = 'scale(1)';  //display main section
-    getData(cityName);
+  else {
+    if (search.classList.contains('fa-search')) {
+      input.disabled = true; //input disabled once fetched
+      const cityName = input.value.trim(); //get input value
+      search.classList.replace('fa-search', 'fa-rotate-right');
 
-  } else {
-    location.reload()
+      vanish.forEach(v => v.classList.add('active')); //extra animation
+      mainSection.style.transform = 'scale(1)';  //display main section
+      getData(cityName);
+      console.log('i a,m here');
+
+    } else {
+      location.reload()
+    }
   }
 }
-
 
 
 const APIkey = `517063abfe0dfc60763f72daff350118`;
@@ -50,6 +52,7 @@ async function getData(city) {
     if (!city || city.trim() === "") {
       mainContainer.style.backgroundImage = `url('imgs/search.jpg')`
       mainSection.style.display = 'none'
+
       return;
     }
 
@@ -59,39 +62,40 @@ async function getData(city) {
       if (response.status === 404) {
         mainContainer.style.background = `url('imgs/not-found.jpg')`
         mainSection.style.display = 'none'
-        
+        return;
       } else {
-        const jsonData = await response.json();
-        setWeatherProperties(jsonData, city)
       }
     }
-
-
-  } catch (error) {
-    mainSection.style.display = 'none'
-
-    popupMenu();
-    popup.textContent = 'Something went wrong. Please try again.'
     
+    const jsonData = await response.json();
+    setWeatherProperties(jsonData)
+
+  } 
+  catch (error) {
+    mainSection.style.display = 'none'
+    popupMenu();
+    popup.textContent = 'You are not connected to network'
+
   }
 };
 
-function setWeatherProperties(data, city) {
+function setWeatherProperties(data) {
+  
   var windSpeed = data.wind.speed * 3.6
   const sunrise = new Date(data.sys.sunrise * 1000);
   const sunset = new Date(data.sys.sunset * 1000);
-
-  locationName.innerHTML = `<i class="fa-solid fa-location-dot"></i> ${data.name}`
-  description.textContent = data.weather[0].description
-  temp.textContent = `${Math.round(data.main.temp)} °C`
-  humid.textContent = data.main.humidity + "%"
-  cloud.textContent = data.weather[0].main
-  wind.textContent = windSpeed.toFixed(2) + ' km/h'
-
+  
+  locationName.innerHTML = `<i class="fa-solid fa-location-dot"></i> ${data.name}`;
+  description.textContent = data.weather[0].description;
+  temp.textContent = `${Math.round(data.main.temp)} °C`;
+  humid.textContent = data.main.humidity + "%";
+  cloud.textContent = data.weather[0].main;
+  wind.textContent = windSpeed.toFixed(2) + ' km/h';
+  
   const options = { hour: "2-digit", minute: "2-digit" };
   rise.innerHTML = `<b>Sunrise: </b> ${sunrise.toLocaleTimeString([], options)} am`;
   set.innerHTML = `<b>Sunset: </b> ${sunset.toLocaleTimeString([], options)} pm`;
-
+  
   setBackground(cloud.textContent);
 }
 
@@ -167,8 +171,8 @@ function setBackground(data) {
 
 //quick popup toggle 
 function popupMenu() {
-    popup.parentElement.classList.add('active')
-    setTimeout(() => {
-      popup.parentElement.classList.remove('active')
-    }, 3000);
+  popup.parentElement.classList.add('active')
+  setTimeout(() => {
+    popup.parentElement.classList.remove('active')
+  }, 3000);
 }
