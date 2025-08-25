@@ -13,7 +13,7 @@ let search = document.querySelector(".searchIcon"),
   mainSection = document.querySelector('.main-section'),
   weatherImg = document.querySelector('.status-img img'),
   vanish = document.querySelectorAll('.vanish')
-popup = document.querySelector('.popup p')
+  popup = document.querySelector('.popup p')
 
 //  add vanish effect once at the start
 
@@ -36,12 +36,6 @@ function searchBtn() {
     getData(cityName);
 
   } else {
-    // search.classList.replace('fa-rotate-right', 'fa-search');
-    // input.disabled = false; //enable input again
-    // input.value = "";  //set input value blank
-    // mainSection.style.transform = 'scale(0)'; 
-    // mainContainer.style.backgroundImage = `url('imgs/search.jpg')`;
-    // vanish.forEach(v => v.classList.remove('active'));
     location.reload()
   }
 }
@@ -65,16 +59,12 @@ async function getData(city) {
       if (response.status === 404) {
         mainContainer.style.background = `url('imgs/not-found.jpg')`
         mainSection.style.display = 'none'
-        throw new Error("city not found. Please enter a valid city name.")
+        
       } else {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const jsonData = await response.json();
+        setWeatherProperties(jsonData, city)
       }
-
-
     }
-    const jsonData = await response.json();
-
-    setWeatherProperties(jsonData, city)
 
 
   } catch (error) {
@@ -82,7 +72,7 @@ async function getData(city) {
 
     popupMenu();
     popup.textContent = 'Something went wrong. Please try again.'
-    console.error(error);
+    
   }
 };
 
@@ -91,7 +81,7 @@ function setWeatherProperties(data, city) {
   const sunrise = new Date(data.sys.sunrise * 1000);
   const sunset = new Date(data.sys.sunset * 1000);
 
-  locationName.innerHTML = `<i class="fa-solid fa-location-dot"></i> ${city.toUpperCase()}`
+  locationName.innerHTML = `<i class="fa-solid fa-location-dot"></i> ${data.name}`
   description.textContent = data.weather[0].description
   temp.textContent = `${Math.round(data.main.temp)} °C`
   humid.textContent = data.main.humidity + "%"
@@ -177,7 +167,6 @@ function setBackground(data) {
 
 //quick popup toggle 
 function popupMenu() {
-  popup.textContent = "Please enter a city name";
     popup.parentElement.classList.add('active')
     setTimeout(() => {
       popup.parentElement.classList.remove('active')
