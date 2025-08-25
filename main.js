@@ -14,6 +14,7 @@ let search = document.querySelector(".searchIcon"),
   weatherImg = document.querySelector('.status-img img'),
   vanish = document.querySelectorAll('.vanish')
 popup = document.querySelector('.popup p')
+popup = document.querySelector('.popup p')
 
 //  add vanish effect once at the start
 
@@ -65,6 +66,8 @@ async function getData(city) {
         return;
       } else {
       }
+
+
     }
     
     const jsonData = await response.json();
