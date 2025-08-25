@@ -126,7 +126,7 @@ body{
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
-  transform: scale(1);
+  transform: scale(0);
 }
 .main-section .city-name{
   margin-top: 2rem;
