@@ -72,7 +72,6 @@ async function getData(city) {
     
     const jsonData = await response.json();
     setWeatherProperties(jsonData)
-
   } 
   catch (error) {
     mainSection.style.display = 'none'
@@ -83,7 +82,6 @@ async function getData(city) {
 };
 
 function setWeatherProperties(data) {
-  
   var windSpeed = data.wind.speed * 3.6
   const sunrise = new Date(data.sys.sunrise * 1000);
   const sunset = new Date(data.sys.sunset * 1000);
