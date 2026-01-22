@@ -1,178 +1,119 @@
-let search = document.querySelector(".searchIcon"),
-  input = document.getElementById("input"),
-  wind = document.getElementById("wind"),
-  cloud = document.getElementById("cloud"),
-  humid = document.getElementById("humid"),
-  rise = document.getElementById("rise"),
-  set = document.getElementById("set"),
-  locationName = document.getElementById("locationName"),
-  temp = document.getElementById("temp"),
-  description = document.getElementById("description"),
-  mainContainer = document.querySelector('.main-container'),
-  dark = document.querySelector('.dark'),
-  mainSection = document.querySelector('.main-section'),
-  weatherImg = document.querySelector('.status-img img'),
-  vanish = document.querySelectorAll('.vanish')
-popup = document.querySelector('.popup p')
+const input = document.getElementById("input");
+const searchBtn = document.getElementById("searchBtn");
+const weatherBox = document.getElementById("weather");
+const errorBox = document.getElementById("error");
 
-//  add vanish effect once at the start
+const locationEl = document.getElementById("location");
+const iconEl = document.getElementById("icon");
+const tempEl = document.getElementById("temp");
+const descEl = document.getElementById("desc");
+const windEl = document.getElementById("wind");
+const humidityEl = document.getElementById("humidity");
+const cloudsEl = document.getElementById("clouds");
+const sunriseEl = document.getElementById("sunrise");
+const sunsetEl = document.getElementById("sunset");
 
+const API_KEY = "517063abfe0dfc60763f72daff350118"; 
 
-if (window.innerWidth > 700) input.focus();
-function searchBtn() {
+searchBtn.addEventListener("click", searchWeather);
+input.addEventListener("keydown", e => {
+  if (e.key === "Enter") searchWeather();
+});
 
-  if (input.value == '') {
-    popup.textContent = 'Please enter city name';
-    popupMenu();
-    return
+async function searchWeather() {
+  const city = input.value.trim();
+  if (!city) {
+    showError("Please enter a city name");
+    return;
   }
-  else {
-    if (search.classList.contains('fa-search')) {
-      input.disabled = true; //input disabled once fetched
-      const cityName = input.value.trim(); //get input value
-      search.classList.replace('fa-search', 'fa-rotate-right');
 
-      vanish.forEach(v => v.classList.add('active')); //extra animation
-      mainSection.style.transform = 'scale(1)';  //display main section
-      getData(cityName);
-      console.log('i a,m here');
-
-    } else {
-      location.reload()
-    }
-  }
-}
-
-
-const APIkey = `517063abfe0dfc60763f72daff350118`;
-
-async function getData(city) {
+  showError("");
+  weatherBox.classList.add("hidden");
 
   try {
-    if (!city || city.trim() === "") {
-      mainContainer.style.backgroundImage = `url('imgs/search.jpg')`
-      mainSection.style.display = 'none'
+    const res = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`
+    );
 
+    if (!res.ok) {
+      showError("City not found");
       return;
     }
 
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${APIkey}&units=metric`);
+    const data = await res.json();
+    updateUI(data);
 
-    if (!response.ok) {
-      if (response.status === 404) {
-        mainContainer.style.background = `url('imgs/not-found.jpg')`
-        mainSection.style.display = 'none'
-        return;
-      } else {
-      }
-
-
-    }
-    
-    const jsonData = await response.json();
-    setWeatherProperties(jsonData)
-  } 
-  catch (error) {
-    mainSection.style.display = 'none'
-    popupMenu();
-    popup.textContent = 'You are not connected to network'
-
+  } catch (err) {
+    showError("Network error. Check connection.");
   }
-};
-
-function setWeatherProperties(data) {
-  var windSpeed = data.wind.speed * 3.6
-  const sunrise = new Date(data.sys.sunrise * 1000);
-  const sunset = new Date(data.sys.sunset * 1000);
-  
-  locationName.innerHTML = `<i class="fa-solid fa-location-dot"></i> ${data.name}`;
-  description.textContent = data.weather[0].description;
-  temp.textContent = `${Math.round(data.main.temp)} °C`;
-  humid.textContent = data.main.humidity + "%";
-  cloud.textContent = data.weather[0].main;
-  wind.textContent = windSpeed.toFixed(2) + ' km/h';
-  
-  const options = { hour: "2-digit", minute: "2-digit" };
-  rise.innerHTML = `<b>Sunrise: </b> ${sunrise.toLocaleTimeString([], options)} am`;
-  set.innerHTML = `<b>Sunset: </b> ${sunset.toLocaleTimeString([], options)} pm`;
-  
-  setBackground(cloud.textContent);
 }
 
-function setBackground(data) {
-  switch (data) {
+function updateUI(data) {
+  locationEl.textContent = `${data.name}, ${data.sys.country}`;
+  tempEl.textContent = `${Math.round(data.main.temp)} °C`;
+  descEl.textContent = data.weather[0].description;
+
+  windEl.textContent = `${(data.wind.speed * 3.6).toFixed(1)} km/h`;
+  humidityEl.textContent = `${data.main.humidity} %`;
+  cloudsEl.textContent = data.weather[0].main;
+
+  const iconCode = data.weather[0].icon;
+  iconEl.src = `https://openweathermap.org/img/wn/${iconCode}@4x.png`;
+
+  const options = { hour: "2-digit", minute: "2-digit" };
+  sunriseEl.textContent = "Sunrise: " + new Date(data.sys.sunrise * 1000).toLocaleTimeString([], options);
+  sunsetEl.textContent = "Sunset: " + new Date(data.sys.sunset * 1000).toLocaleTimeString([], options);
+
+  setBackground(data.weather[0].main);
+  weatherBox.classList.remove("hidden");
+
+}
+
+function showError(msg) {
+  errorBox.textContent = msg;
+}
+
+function setBackground(condition) {
+  document.body.className = ""; // reset
+
+  switch (condition) {
+    case "Clear":
+      document.body.classList.add("bg-clear");
+      break;
+
     case "Clouds":
-      mainContainer.style.backgroundImage = `url('imgs/cloud.jpg')`;
-      weatherImg.src = 'imgs/cloudy.png';
-      dark.style.color = 'white';
+      document.body.classList.add("bg-clouds");
       break;
 
     case "Rain":
-      mainContainer.style.backgroundImage = `url('imgs/rainn.gif')`;
-      weatherImg.src = 'imgs/rain.gif';
-      dark.style.color = 'black';
+      document.body.classList.add("bg-rain");
       break;
 
-    case "Clear":
-      mainContainer.style.backgroundImage = `url('imgs/clear.jpeg')`;
-      weatherImg.src = 'imgs/clear.png';
-      dark.style.color = 'white';
+    case "Thunderstorm":
+      document.body.classList.add("bg-thunderstorm");
       break;
 
     case "Snow":
-      mainContainer.style.backgroundImage = `url('imgs/snow.jpg')`;
-      weatherImg.src = 'imgs/snow.png';
-      dark.style.color = 'black';
+      document.body.classList.add("bg-snow");
       break;
 
     case "Mist":
     case "Fog":
     case "Haze":
-      mainContainer.style.backgroundImage = `url('imgs/mist.jpg')`;
-      weatherImg.src = 'imgs/fog.png';
-      dark.style.color = 'white';
-      break;
-
-    case "Thunderstorm":
-      mainContainer.style.backgroundImage = `url('imgs/thunder.jpg')`;
-      weatherImg.src = 'imgs/storm.png';
-      dark.style.color = 'white';
+      document.body.classList.add("bg-mist");
       break;
 
     case "Drizzle":
-      mainContainer.style.backgroundImage = `url('imgs/drizzle.jpg')`;
-      weatherImg.src = 'imgs/drizzle.gif';
-      dark.style.color = 'black';
+      document.body.classList.add("bg-drizzle");
       break;
 
     case "Smoke":
     case "Dust":
     case "Sand":
-      mainContainer.style.backgroundImage = `url('imgs/dust.jpg')`;
-      weatherImg.src = 'imgs/fog.png';
-      dark.style.color = 'white';
-      break;
-
-    case "Tornado":
-      mainContainer.style.backgroundImage = `url('imgs/tornado.jpg')`;
-      weatherImg.src = 'imgs/tornado.gif';
-      dark.style.color = 'white';
+      document.body.classList.add("bg-dust");
       break;
 
     default:
-      // Fallback if condition not handled
-      mainContainer.style.backgroundImage = `url('imgs/default.jpg')`;
-      weatherImg.src = '';
-      dark.style.color = 'white';
-      break;
+      document.body.classList.add("bg-clouds");
   }
-}
-
-
-//quick popup toggle 
-function popupMenu() {
-  popup.parentElement.classList.add('active')
-  setTimeout(() => {
-    popup.parentElement.classList.remove('active')
-  }, 3000);
 }
