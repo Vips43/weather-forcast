@@ -10,87 +10,87 @@
   <title>Weather☁️forcast</title>
 
   <!-- HTML -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" />
   <!-- Custom Styles -->
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-    <main class="main-container">
-      <!-- <img src="imgs/not-founded.jpg" alt=""> -->
-      <section class="Weather-container">
-        <header>
-          <div class="heading">
-            <h2>Weather App</h2>
-          </div>
-          <div class="input-box">
-            <input type="text" id="input" placeholder="Search for city">
-            <i onclick="searchBtn()" class="searchIcon fa-solid fa-search"></i>
-          </div>
-        </header>
-
-        <div class="popup">
-          <p></p>
+  <main class="main-container">
+    <!-- <img src="imgs/not-founded.jpg" alt=""> -->
+    <section class="Weather-container">
+      <header>
+        <div class="heading">
+          <h2>Weather App</h2>
         </div>
-          <!-- main section -->
-          <main class="main-section">
-            <!--city name -->
-            <div class="city-name vanish">
-              
-              <h3 id="locationName" class="white"></h3>
+        <div class="input-box">
+          <input type="text" id="input" placeholder="Search for city">
+          <i onclick="searchBtn()" class="searchIcon fa-solid fa-search"></i>
+        </div>
+      </header>
+
+      <div class="popup">
+        <p></p>
+      </div>
+      <!-- main section -->
+      <main class="main-section">
+        <!--city name -->
+        <div class="city-name vanish">
+
+          <h3 id="locationName" class="white"></h3>
+        </div>
+
+        <!-- weather container all properties -->
+        <div class="weather-header">
+          <div class="status-img vanish">
+            <img src="" alt="">
+            <span id="description" class="curr-status white">Clear</span>
+          </div>
+
+          <div class="weather-properties">
+            <div class="weather-info vanish">
+              <span class="wind-status dark">wind</span>
+              <i class="fa-solid fa-wind dark"></i>
+              <span id="wind" class="wind-status dark"></span>
             </div>
-
-            <!-- weather container all properties -->
-            <div class="weather-header">
-              <div class="status-img vanish">
-                <img src="" alt="">
-                <span id="description" class="curr-status white">Clear</span>
-              </div>
-
-              <div class="weather-properties">
-                <div class="weather-info vanish">
-                  <span class="wind-status dark">wind</span>
-                  <i class="fa-solid fa-wind dark"></i>
-                  <span id="wind" class="wind-status dark"></span>
-                </div>
-                <div class="weather-info vanish">
-                  <span class="cloud-status dark">Status</span>
-                  <i class="fa-regular fa-cloud dark"></i>
-                  <span id="cloud" class="cloud-status dark"></span>
-                </div>
-                <div class="weather-info vanish">
-                  <span class="humid-status dark">Humid</span>
-                  <i class="fa-solid fa-droplet dark"></i>
-                  <span id="humid" class="humid-status dark"></span>
-                </div>
-                <div class="weather-info vanish">
-                  <span class="temp-status dark">Temp</span>
-                  <i class="fa-solid fa-temperature-high dark"></i>
-                  <span id="temp" class="temp-status dark"></span>
-                </div>
-              </div>
+            <div class="weather-info vanish">
+              <span class="cloud-status dark">Status</span>
+              <i class="fa-regular fa-cloud dark"></i>
+              <span id="cloud" class="cloud-status dark"></span>
             </div>
-            <div class="weather-bottom">
-              <div class="sun-rise vanish">
-                <!-- <img src="imgs/sunny.png" alt=""> -->
-                <p id="rise"></p>
-              </div>
-              <div class="sun-set vanish">
-                <!-- <img src="imgs/moon.png" alt=""> -->
-                <p id="set"></p>
-              </div>
+            <div class="weather-info vanish">
+              <span class="humid-status dark">Humid</span>
+              <i class="fa-solid fa-droplet dark"></i>
+              <span id="humid" class="humid-status dark"></span>
             </div>
+            <div class="weather-info vanish">
+              <span class="temp-status dark">Temp</span>
+              <i class="fa-solid fa-temperature-high dark"></i>
+              <span id="temp" class="temp-status dark"></span>
+            </div>
+          </div>
+        </div>
+        <div class="weather-bottom">
+          <div class="sun-rise vanish">
+            <!-- <img src="imgs/sunny.png" alt=""> -->
+            <p id="rise"></p>
+          </div>
+          <div class="sun-set vanish">
+            <!-- <img src="imgs/moon.png" alt=""> -->
+            <p id="set"></p>
+          </div>
+        </div>
 
 
-            
-            <!-- weather container all properties ends -->
 
-          </main>
-          <!-- main section ends-->
+        <!-- weather container all properties ends -->
 
-        
-      </section>
-    </main>
+      </main>
+      <!-- main section ends-->
+
+
+    </section>
+  </main>
 
   <script src="main.js"></script>
 </body>

@@ -121,7 +121,7 @@ function setBackground(data) {
 
     case "Snow":
       mainContainer.style.backgroundImage = `url('imgs/snow.jpg')`;
-      weatherImg.src = 'imgs/snow.gif';
+      weatherImg.src = 'imgs/snow.png';
       dark.style.color = 'black';
       break;
 
@@ -129,13 +129,13 @@ function setBackground(data) {
     case "Fog":
     case "Haze":
       mainContainer.style.backgroundImage = `url('imgs/mist.jpg')`;
-      weatherImg.src = 'imgs/mist.gif';
+      weatherImg.src = 'imgs/fog.png';
       dark.style.color = 'white';
       break;
 
     case "Thunderstorm":
       mainContainer.style.backgroundImage = `url('imgs/thunder.jpg')`;
-      weatherImg.src = 'imgs/thunder.gif';
+      weatherImg.src = 'imgs/storm.png';
       dark.style.color = 'white';
       break;
 
@@ -149,7 +149,7 @@ function setBackground(data) {
     case "Dust":
     case "Sand":
       mainContainer.style.backgroundImage = `url('imgs/dust.jpg')`;
-      weatherImg.src = 'imgs/dust.gif';
+      weatherImg.src = 'imgs/fog.png';
       dark.style.color = 'white';
       break;
 
@@ -176,3 +176,4 @@ function popupMenu() {
     popup.parentElement.classList.remove('active')
   }, 3000);
 }
+
