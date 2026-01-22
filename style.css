@@ -39,6 +39,7 @@ body {
  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
  color: #fff;
  animation: fadeIn 0.6s ease;
+ overflow: hidden;
 }
 
 @keyframes fadeIn {
@@ -260,6 +261,145 @@ body {
  background: linear-gradient(135deg, #ba8b02, #181818);
 }
 
+/*=========== sideBtn================  */
+.main{
+  display: flex;
+  gap: 10px;
+  transform: translateX(0%);
+  transition: all .5s ease-in-out;
+}
+.slideW {
+  flex-grow: 1;
+  width: 100%;
+  flex-shrink: 0;
+  position: relative;
+  transition: all .5s ease-in-out;
+  /* transform: translatex(0%); */
+}
+.sideBtn{
+  position: absolute;
+  height: 3rem;
+  width: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  background-color: #2740467e;
+  right: 0;
+  bottom: 50%;
+  transform: translateY(-50%);
+}
+
+/*=========== next 7 day================  */
+.sevenDays.hide{
+  display: none;
+}
+
+.sevenDays{
+  width: 100%;
+  flex-grow: 1;
+  flex-shrink: 0;
+  background-color: transparent;
+  transition: all .5s ease-in-out;
+}
+.sevenDays .wrapperD header{
+  gap: 1rem;
+}
+.sevenDays .wrapperD header .backArrow{
+  margin: 0.5rem 0;
+  padding: 0.2rem 0.35rem;
+  aspect-ratio: square;
+  border-radius: 50%;
+  opacity: 0.7;
+  width: fit-content;
+  height: fit-content;
+  cursor: pointer;
+}
+.sevenDays .wrapperD header .backArrow:hover{
+  scale: 1.1;
+  opacity: 1;
+}
+.sevenDays .wrapperD header h5{
+  font-size: 1rem;
+  font-weight: 300;
+  margin: .5rem 0 0.5rem 0.5rem;
+}
+.monday{
+  margin: 1.5rem 0 1rem 0;
+  padding: 10px;
+  border-radius: 0.5rem;
+  corner-shape:bevel;
+}
+.monday .mondayTop{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.monday .mondayTop p{
+  display: flex;
+  flex-direction: column;
+}
+.monday .mondayTop p span:nth-child(1){
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+.monday .mondayTop p span:nth-child(2){
+  font-size: 1.2rem;
+  font-family: Arial, Helvetica;
+  justify-self: self-start;
+}
+.monday .mondayTop img{
+  width: 80px;
+}
+.mondayBottom{
+  margin: 1rem 0 0rem 0;
+  display: flex;
+  justify-content: space-between;
+}
+.mondayBottom p{
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* .otherDay{
+
+} */
+.otherDay ul{
+  list-style-type: none;
+}
+.otherDay ul li{
+  padding: 0.3rem 0.5rem;
+  border-bottom: 1px solid rgb(255, 255, 255);
+}
+.otherDay ul li div{
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.otherDay ul li div p{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.otherDay ul li div p span:nth-child(1){
+  font-size: 1rem;
+}
+.otherDay ul li div p span:nth-child(2){
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.d1 span{
+  font-size: 1.2rem;
+}
+.otherDayImg{
+  width: 40px;
+  margin-left: auto;
+}
+
+
+
 /* ========== MOBILE RESPONSIVE ========== */
 @media (max-width: 480px) {
  .app {
@@ -285,7 +425,7 @@ body {
  }
 
  .sun {
-  flex-direction: column;
+  flex-direction: row;
   gap: 6px;
   text-align: center;
  }
@@ -301,6 +441,7 @@ body {
 @media (max-width: 720px) {
  .app {
   width: 100%;
+  padding: 0;
  }
  .card {
   margin-top: 40px;
@@ -328,17 +469,14 @@ body {
   font-size: 2rem;
  }
 
+ #detailsPanel{
+  position: absolute;
+ }
+
  .details {
   flex-direction: row;
   gap: 10px;
   align-items: center;
- }
-
- .sun {
-  flex-direction: column;
-  gap: 6px;
-  text-align: center;
-  font-size: 1.2rem;
  }
 
  .icon {

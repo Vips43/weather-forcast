@@ -4,10 +4,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Modern Weather App</title>
-
+  <title>Weather App</title>
+  <link rel="shortcut icon" href="./imgs/clears.png" type="image/x-icon">
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
 </head>
 
 <body>
@@ -15,55 +16,102 @@
   <div id="rain" class="rain"></div>
   <div id="snow" class="snow"></div>
   <div class="app">
+
     <div class="card">
 
       <h2 class="title">Weather</h2>
-      
+
       <div class="search">
         <input id="input" type="text" placeholder="Enter city name..." />
         <button id="searchBtn">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
       </div>
-      
+
       <div class="loader hide">Loading...</div>
       <div class="error" id="error"></div>
-      
-      <div class="weather hidden" id="weather">
-        
-        
-        <div class="location" id="location">—</div>
-        
-        <img id="icon" class="icon" src="" alt="weather" />
 
-        <div class="temp" id="temp">— °C</div>
-        <div class="desc" id="desc">—</div>
+      <div class="main">
 
-        <div class="details">
-          <div>
-            <i class="fa-solid fa-wind"></i>
-            <span id="wind">— km/h</span>
+        <div class="weather hidden slideW" id="weather">
+
+          <div class="location" id="location">—</div>
+
+          <img id="icon" class="icon" src="" alt="weather" />
+
+          <div class="temp" id="temp">— °C</div>
+          <div class="desc" id="desc">—</div>
+
+          <div class="details">
+            <div>
+              <i class="fa-solid fa-wind"></i>
+              <span id="wind">— km/h</span>
+            </div>
+            <div>
+              <i class="fa-solid fa-droplet"></i>
+              <span id="humidity">— %</span>
+            </div>
+            <div>
+              <i class="fa-solid fa-cloud"></i>
+              <span id="clouds">—</span>
+            </div>
           </div>
-          <div>
-            <i class="fa-solid fa-droplet"></i>
-            <span id="humidity">— %</span>
+
+          <div class="sun">
+            <div id="sunrise">Sunrise: —</div>
+            <div id="sunset">Sunset: —</div>
           </div>
-          <div>
-            <i class="fa-solid fa-cloud"></i>
-            <span id="clouds">—</span>
+
+          <div class="sideBtn">
+            <i class="fa-solid fa-chevron-left"></i>
           </div>
         </div>
 
-        <div class="sun">
-          <div id="sunrise">Sunrise: —</div>
-          <div id="sunset">Sunset: —</div>
+        <div id="sevenDays" class="sevenDays">
+          <div class="wrapperD">
+            <header>
+              <div class="backArrow">
+                <i class="fa-solid fa-chevron-left"></i>
+              </div>
+              <h5> Next 7 Days Forcast</h5>
+            </header>
+
+            <div class="monday bg-clear">
+              <div class="mondayTop">
+                <p class="pTag"><span>Monday</span><span>Sunny</span></p>
+                <img src="./imgs/clears.png" alt="">
+              </div>
+              <div class="mondayBottom">
+                <p><span>29°</span><span>Windy</span></p>
+                <p><span>45°</span><span>Cloudy</span></p>
+                <p><span>45°</span><span>Sunny</span></p>
+                <p><span>Mumbai</span><span>India</span></p>
+              </div>
+            </div>
+
+            <div class="otherDay">
+              <ul>
+                <li>
+                  <div class="d1">
+                    <p><span>Monday</span><span>Sunny</span></p>
+                    <img class="otherDayImg" src="./imgs/clears.png" alt="">
+                    <span>29%</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
 
       </div>
+
     </div>
+
+
   </div>
 
-  <script type="module" src="main.js"></script>
+  <script src="main.js"></script>
+  <script src="misc.js"></script>
 </body>
 
 </html>

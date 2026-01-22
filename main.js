@@ -1,28 +1,7 @@
-
-const input = document.getElementById("input");
-const searchBtn = document.getElementById("searchBtn");
-const weatherBox = document.getElementById("weather");
-const errorBox = document.getElementById("error");
-
-const locationEl = document.getElementById("location");
-const iconEl = document.getElementById("icon");
-const tempEl = document.getElementById("temp");
-const descEl = document.getElementById("desc");
-const windEl = document.getElementById("wind");
-const humidityEl = document.getElementById("humidity");
-const cloudsEl = document.getElementById("clouds");
-const sunriseEl = document.getElementById("sunrise");
-const sunsetEl = document.getElementById("sunset");
-const loader = document.querySelector(".loader");
-
 const API_KEY = `517063abfe0dfc60763f72daff350118`;
 
-searchBtn.addEventListener("click", searchWeather);
-input.addEventListener("keydown", e => {
-  if (e.key === "Enter") searchWeather();
-});
 
-let cache={};
+let cache = {};
 
 async function searchWeather() {
   const city = input.value.trim();
@@ -31,8 +10,7 @@ async function searchWeather() {
     return;
   }
 
-  if(cache[city]){
-    console.log("serving from cache... ")
+  if (cache[city]) {
     return updateUI(cache[city])
   }
 
@@ -48,16 +26,16 @@ async function searchWeather() {
       showError("City not found");
       return;
     }
-    
+
     const data = await res.json();
 
     cache[city] = data;
 
     updateUI(data);
 
-    const elapsed = Date.now()-start;
-    if(elapsed<600){
-      await new Promise(r=> setTimeout(r, 400-elapsed))
+    const elapsed = Date.now() - start;
+    if (elapsed < 600) {
+      await new Promise(r => setTimeout(r, 400 - elapsed))
     }
 
   } catch (err) {
@@ -68,6 +46,7 @@ async function searchWeather() {
 }
 
 function updateUI(data) {
+  document.title = "Weather|" + data.name;
   locationEl.textContent = `${data.name}, ${data.sys.country}`;
   tempEl.textContent = `${Math.round(data.main.temp)} °C`;
   descEl.textContent = data.weather[0].description;
@@ -156,4 +135,9 @@ function setParticles(condition) {
       snowEl.style.display = "block";
       break;
   }
+}
+
+async function fetchForcast(){
+  const res = await fetch('')
+  const data = await res.json();
 }
