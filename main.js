@@ -176,4 +176,3 @@ function popupMenu() {
     popup.parentElement.classList.remove('active')
   }, 3000);
 }
-
