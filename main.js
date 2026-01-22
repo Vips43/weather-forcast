@@ -65,6 +65,8 @@ function updateUI(data) {
   sunsetEl.textContent = "Sunset: " + new Date(data.sys.sunset * 1000).toLocaleTimeString([], options);
 
   setBackground(data.weather[0].main);
+  setParticles(data.weather[0].main);
+
   weatherBox.classList.remove("hidden");
 
 }
@@ -115,5 +117,24 @@ function setBackground(condition) {
 
     default:
       document.body.classList.add("bg-clouds");
+  }
+}
+const rainEl = document.getElementById("rain");
+const snowEl = document.getElementById("snow");
+function setParticles(condition) {
+  // reset
+  rainEl.style.display = "none";
+  snowEl.style.display = "none";
+
+  switch (condition) {
+    case "Rain":
+    case "Drizzle":
+    case "Thunderstorm":
+      rainEl.style.display = "block";
+      break;
+
+    case "Snow":
+      snowEl.style.display = "block";
+      break;
   }
 }

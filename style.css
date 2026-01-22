@@ -48,7 +48,7 @@ body {
 
 .search {
   display: flex;
-  gap: 10px;
+  gap: 5px;
   margin-bottom: 10px;
 }
 
@@ -170,4 +170,85 @@ body {
 .bg-dust {
   background: linear-gradient(135deg, #ba8b02, #181818);
 }
+.rain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  display: none;
+}
 
+.rain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 5px,
+    rgba(255,255,255,0.35) 6px
+  );
+  animation: rain-fall 0.4s linear infinite;
+}
+
+@keyframes rain-fall {
+  from { background-position: 0 0; }
+  to   { background-position: 0 100px; }
+}
+.snow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  display: none;
+}
+
+.snow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(2px 2px at 20% 10%, white, transparent),
+    radial-gradient(2px 2px at 40% 30%, white, transparent),
+    radial-gradient(2px 2px at 60% 50%, white, transparent),
+    radial-gradient(2px 2px at 80% 20%, white, transparent),
+    radial-gradient(2px 2px at 30% 70%, white, transparent);
+  animation: snow-fall 6s linear infinite;
+}
+
+@keyframes snow-fall {
+  from { background-position: 0 0; }
+  to   { background-position: 0 300px; }
+}
+
+@media (max-width: 480px) {
+  .card {
+    width: 100%;
+    max-width: 100%;
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .temp {
+    font-size: 2rem;
+  }
+
+  .details {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .sun {
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+
+  .icon {
+    width: 80px;
+  }
+
+  .search input {
+    font-size: 0.9rem;
+  }
+}
