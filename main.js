@@ -1,3 +1,4 @@
+
 const input = document.getElementById("input");
 const searchBtn = document.getElementById("searchBtn");
 const weatherBox = document.getElementById("weather");
@@ -12,13 +13,16 @@ const humidityEl = document.getElementById("humidity");
 const cloudsEl = document.getElementById("clouds");
 const sunriseEl = document.getElementById("sunrise");
 const sunsetEl = document.getElementById("sunset");
+const loader = document.querySelector(".loader");
 
-const API_KEY = process.env.api_key; 
+const API_KEY = `517063abfe0dfc60763f72daff350118`;
 
 searchBtn.addEventListener("click", searchWeather);
 input.addEventListener("keydown", e => {
   if (e.key === "Enter") searchWeather();
 });
+
+let cache={};
 
 async function searchWeather() {
   const city = input.value.trim();
@@ -27,9 +31,14 @@ async function searchWeather() {
     return;
   }
 
+  if(cache[city]){
+    console.log("serving from cache... ")
+    return updateUI(cache[city])
+  }
+
   showError("");
   weatherBox.classList.add("hidden");
-
+  loader.classList.remove("hide")
   try {
     const res = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`
@@ -39,12 +48,22 @@ async function searchWeather() {
       showError("City not found");
       return;
     }
-
+    
     const data = await res.json();
+
+    cache[city] = data;
+
     updateUI(data);
+
+    const elapsed = Date.now()-start;
+    if(elapsed<600){
+      await new Promise(r=> setTimeout(r, 400-elapsed))
+    }
 
   } catch (err) {
     showError("Network error. Check connection.");
+  } finally {
+    loader.classList.add("hide")
   }
 }
 

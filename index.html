@@ -14,25 +14,26 @@
   <!-- Weather Particles -->
   <div id="rain" class="rain"></div>
   <div id="snow" class="snow"></div>
-
   <div class="app">
     <div class="card">
 
       <h2 class="title">Weather</h2>
-
+      
       <div class="search">
         <input id="input" type="text" placeholder="Enter city name..." />
         <button id="searchBtn">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
       </div>
-
+      
+      <div class="loader hide">Loading...</div>
       <div class="error" id="error"></div>
-
+      
       <div class="weather hidden" id="weather">
-
+        
+        
         <div class="location" id="location">—</div>
-
+        
         <img id="icon" class="icon" src="" alt="weather" />
 
         <div class="temp" id="temp">— °C</div>
@@ -62,7 +63,7 @@
     </div>
   </div>
 
-  <script src="main.js"></script>
+  <script type="module" src="main.js"></script>
 </body>
 
 </html>

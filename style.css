@@ -349,3 +349,29 @@ body {
   font-size: 0.95rem;
  }
 }
+.loader.hide{
+  display: none;
+}
+.loader{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+  text-align: center;
+  font-weight: 900;
+  overflow: hidden;
+  animation: loader 1s ease-in-out infinite;
+  transition: all .5s ease-in-out;
+}
+
+@keyframes loader{
+  0%{
+    opacity: 0;
+    letter-spacing: 0.1ch;
+    text-shadow: 2px 2px #fd8a8a;
+  }100%{
+    opacity: 1;
+    letter-spacing: 0.7ch;
+    text-shadow: 2px 2px #a18585;
+  }
+}
