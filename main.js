@@ -13,7 +13,7 @@ const cloudsEl = document.getElementById("clouds");
 const sunriseEl = document.getElementById("sunrise");
 const sunsetEl = document.getElementById("sunset");
 
-const API_KEY = "517063abfe0dfc60763f72daff350118"; 
+const API_KEY = process.env.api_key; 
 
 searchBtn.addEventListener("click", searchWeather);
 input.addEventListener("keydown", e => {
