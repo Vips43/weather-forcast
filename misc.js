@@ -1,39 +1,33 @@
-const input = document.getElementById("input");
-const searchBtn = document.getElementById("searchBtn");
-const weatherBox = document.getElementById("weather");
-const errorBox = document.getElementById("error");
+const sideBtn = document.querySelector(".sideBtn");
+const main = document.querySelector(".main");
 
-const locationEl = document.getElementById("location");
-const iconEl = document.getElementById("icon");
-const tempEl = document.getElementById("temp");
-const descEl = document.getElementById("desc");
-const windEl = document.getElementById("wind");
-const humidityEl = document.getElementById("humidity");
-const cloudsEl = document.getElementById("clouds");
-const sunriseEl = document.getElementById("sunrise");
-const sunsetEl = document.getElementById("sunset");
-const loader = document.querySelector(".loader");
+// ✅ Safe bindings (no crashes)
+if (sideBtn && main) {
+  sideBtn.addEventListener("click", () => {
+    main.style.transform = `translateX(-103%)`;
+  });
+}
 
-const sideBtn = document.querySelector(".sideBtn")
-const backArrow = document.querySelector(".backArrow")
-const slideW = document.querySelector(".slideW")
-const sevenDays = document.querySelector(".sevenDays")
-const main = document.querySelector(".main")
-
-searchBtn.addEventListener("click", searchWeather);
-input.addEventListener("keydown", e => {
-    if (e.key === "Enter") searchWeather();
+document.addEventListener("click", (e) => {
+  if (e.target.closest(".backArrow")) {
+    const main = document.querySelector(".main");
+    if (main) {
+      main.style.transform = `translateX(0%)`;
+    }
+  }
 });
 
-
-sideBtn.addEventListener("click", () => {
-    main.style.transform = `translateX(-103%)`
-})
-
-backArrow.addEventListener("click", () => {
-    main.style.transform = `translateX(0%)`
-})
-
-const day = ['sunday', 'monday', "tuesday", "wednesday", "thursday", "friday", "saturday",]
-let date = new Date(`2026-01-22 21:00:00`);
-console.log(day[date.getDay()])
+// Utility
+function getDay(daystring) {
+  const day = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ];
+  let date = new Date(daystring);
+  return day[date.getDay()];
+}

@@ -13,6 +13,7 @@ body {
  min-height: 100dvh;
  background: linear-gradient(135deg, #1d2671, #c33764);
  transition: background 0.6s ease;
+ overflow-x: hidden;
 }
 
 /* ========== APP LAYOUT ========== */
@@ -30,6 +31,8 @@ body {
 /* ========== GLASS CARD ========== */
 .card {
  width: 100%;
+ position: relative;
+ z-index: 2;
  max-width: 380px;
  margin-top: 60px;
  padding: 22px;
@@ -139,12 +142,13 @@ body {
 }
 
 .temp {
- font-size: 2.4rem;
+ font-size: 3.4rem;
  font-weight: 600;
 }
 
 .desc {
  text-transform: capitalize;
+ font-size: 1.5rem;
  opacity: 0.9;
  margin-bottom: 14px;
 }
@@ -153,23 +157,26 @@ body {
 .details {
  display: flex;
  justify-content: space-between;
- margin: 15px 0;
+ margin: 1.5rem 0 10px 0;
+ padding: 0.5rem 0;
  font-size: 0.9rem;
 }
 
 .details div {
  display: flex;
+ flex-direction: column;
  align-items: center;
  gap: 6px;
 }
 
 /* ========== SUN INFO ========== */
 .sun {
- font-size: 0.85rem;
+ font-size: 1rem;
  opacity: 0.9;
  display: flex;
  justify-content: space-between;
  margin-top: 8px;
+ padding: 0.5rem;
 }
 
 /* ========== PARTICLES ========== */
@@ -288,8 +295,13 @@ body {
   right: 0;
   bottom: 50%;
   transform: translateY(-50%);
+  cursor: pointer;
+  transition: all .5s ease-in-out;
 }
-
+.sideBtn:hover{
+  background-color: white;
+  color: black;
+}
 /*=========== next 7 day================  */
 .sevenDays.hide{
   display: none;
@@ -297,17 +309,27 @@ body {
 
 .sevenDays{
   width: 100%;
+  max-height: calc(100dvh - 160px);
+  overflow-y: auto;
+  padding-right: 4px;
   flex-grow: 1;
   flex-shrink: 0;
   background-color: transparent;
   transition: all .5s ease-in-out;
 }
-.sevenDays .wrapperD header{
+.sevenDays .wrapperD header {
+  display: flex;
+  align-items: center;
   gap: 1rem;
 }
+
 .sevenDays .wrapperD header .backArrow{
   margin: 0.5rem 0;
-  padding: 0.2rem 0.35rem;
+  padding: 0.4rem 0.55rem;
+  min-width: 32px;
+  min-height: 32px;
+  display: grid;
+  place-items: center;
   aspect-ratio: square;
   border-radius: 50%;
   opacity: 0.7;
@@ -357,7 +379,7 @@ body {
   justify-content: space-between;
 }
 .mondayBottom p{
-  font-size: 1rem;
+  font-size: 0.9rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -384,6 +406,7 @@ body {
 }
 .otherDay ul li div p span:nth-child(1){
   font-size: 1rem;
+  font-weight: 600;
 }
 .otherDay ul li div p span:nth-child(2){
   font-size: 0.9rem;
@@ -391,7 +414,7 @@ body {
 }
 
 .d1 span{
-  font-size: 1.2rem;
+  font-size: 0.9rem;
 }
 .otherDayImg{
   width: 40px;
@@ -414,9 +437,6 @@ body {
   font-size: 1.3rem;
  }
 
- .temp {
-  font-size: 2rem;
- }
 
  .details {
   flex-direction: column;
@@ -465,9 +485,6 @@ body {
   font-size: 1.3rem;
  }
 
- .temp {
-  font-size: 2rem;
- }
 
  #detailsPanel{
   position: absolute;
