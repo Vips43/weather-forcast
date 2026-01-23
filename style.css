@@ -452,7 +452,7 @@ body {
   font-size: 0.95rem;
  }
 }
-@media (max-width: 550px) {
+@media (max-width: 650px) {
  .app {
   width: 100%;
   padding: 0;
