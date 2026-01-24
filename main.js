@@ -40,18 +40,18 @@ async function searchWeather() {
     updateUI(cache[key]);
     return;
   }
-  
+
   showError("");
   weatherBox.classList.add("hidden");
-  
+
   // ✅ Show loader
   loader.classList.remove("hide");
-  
+
   try {
     const res = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`
     );
-    
+
     if (!res.ok) {
       showError("City not found");
       return;
@@ -59,10 +59,10 @@ async function searchWeather() {
 
     const start = Date.now();
     const data = await res.json();
-    
+
     // ✅ Save to simple cache
     cache[key] = data;
-    
+
     updateUI(data);
 
     // Optional minimum loader time (UX polish)
@@ -98,6 +98,7 @@ function updateUI(data) {
   sunsetEl.textContent =
     "Sunset: " + new Date(data.sys.sunset * 1000).toLocaleTimeString([], options);
 
+
   setBackground(data.weather[0].main);
   setParticles(data.weather[0].main);
   fetchForecast(data.name);
@@ -109,7 +110,6 @@ function updateUI(data) {
 function showError(msg) {
   errorBox.textContent = msg;
 }
-
 function setBackground(condition) {
   document.body.className = "";
 
@@ -200,7 +200,7 @@ function render7Days() {
       <h5> Next 7 Days Forecast</h5>
     </header>
 
-    <div class="monday bg-clear">
+    <div class="monday ${setConditions(presentDay.weather[0].main)}">
       <div class="mondayTop">
         <p class="pTag">
           <span>${getDay(presentDay.dt_txt)}</span>
@@ -251,3 +251,37 @@ function render7Days() {
   sevenDays.append(div);
 }
 
+
+function setConditions(condition) {
+  let bg = ``
+  switch (condition) {
+    case "Clear":
+      bg = 'bg-clears'
+      break;
+    case "Clouds":
+      bg = 'bg-cloudss'
+      break;
+    case "Rain":
+      bg = 'bg-rain';
+      break;
+    case "Thunderstorm":
+      bg = 'bg-thunderstorm'
+      break;
+    case "Snow":
+      bg = "bg-snow"
+      break;
+    case "Mist":
+    case "Fog":
+    case "Haze":
+      bg = 'bg-mistt'
+      break;
+    case "Smoke":
+    case "Dust":
+    case "Sand":
+      bg = 'bg-dust'
+      break;
+    default:
+      bg = 'bg-cloudss'
+  }
+  return bg;
+}
